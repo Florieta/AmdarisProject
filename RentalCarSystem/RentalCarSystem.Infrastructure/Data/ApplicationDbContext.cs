@@ -12,7 +12,6 @@ namespace RentalCarManagementSystem.Infrastructure.Data
             : base(options)
         {
         }
-
         public DbSet<Booking> Bookings { get; init; } = null!;
 
         public DbSet<Car> Cars { get; init; } = null!;
@@ -36,18 +35,6 @@ namespace RentalCarManagementSystem.Infrastructure.Data
             builder.ApplyConfiguration(new CarConfiguration());
             builder.ApplyConfiguration(new LocationConfiguration());
             builder.ApplyConfiguration(new InsuranceConfiguration());
-
-            builder.Entity<Booking>(e =>
-            {
-                e.HasOne(t => t.PickUpLocation)
-                 .WithMany(c => c.PickUpLocations)
-                 .HasForeignKey(t => t.PickUpLocationId)
-                 .OnDelete(DeleteBehavior.Restrict);
-                e.HasOne(t => t.DropOffLocation)
-                 .WithMany(c => c.DropOffLocations)
-                 .HasForeignKey(t => t.DropOffLocationId)
-                 .OnDelete(DeleteBehavior.Restrict);
-            });
 
             base.OnModelCreating(builder);
         }

@@ -11,9 +11,6 @@ namespace RentalCarSystem.Infrastructure.Entities
 {
     public class Car
     {
-       
-
-        [Key]
         public int Id { get; set; } 
 
         [Required]
@@ -29,7 +26,6 @@ namespace RentalCarSystem.Infrastructure.Entities
         public string Make { get; set; } = null!;
 
         [Required]
-        [Range(2010, 2022)]
         public int MakeYear { get; set; } 
 
         [Required]

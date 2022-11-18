@@ -17,6 +17,8 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
             builder.HasData(CreateUsersBookings());
 
             builder.HasKey(x => new { x.ApplicationUserId, x.BookingId });
+            builder.Property(x => x.ApplicationUserId).IsRequired();
+            builder.Property(x => x.BookingId).IsRequired();
         }
         private List<UserBooking> CreateUsersBookings()
         {

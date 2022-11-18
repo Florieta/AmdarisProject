@@ -15,6 +15,13 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Insurance> builder)
         {
             builder.HasData(CreateInsurances());
+
+            builder.HasMany(b => b.Bookings);
+            builder.Property(i => i.TypeOfInsurance)
+                .IsRequired()
+                .HasMaxLength(20);
+            builder.Property(c => c.CostPerDay)
+                .IsRequired();
         }
 
         private List<Insurance> CreateInsurances()

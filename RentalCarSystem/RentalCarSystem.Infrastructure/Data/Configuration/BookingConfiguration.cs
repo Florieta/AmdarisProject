@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RentalCarSystem.Infrastructure.Entities;
+using RentalCarSystem.Infrastructure.Entities.Enum.Booking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,37 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
             builder.HasData(CreateBookings());
+            builder.HasMany(ub => ub.UsersBookings);
+            builder.HasOne(c => c.Car)
+                .WithMany(b => b.Bookings)
+                .HasForeignKey(c => c.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(c => c.Customer)
+                 .WithMany(b => b.Bookings)
+                .HasForeignKey(c => c.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            builder.HasOne(c => c.Insurance);
+
+            builder.HasOne(t => t.PickUpLocation)
+                 .WithMany(c => c.PickUpLocations)
+                 .HasForeignKey(t => t.PickUpLocationId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(t => t.DropOffLocation)
+                 .WithMany(c => c.DropOffLocations)
+                 .HasForeignKey(t => t.DropOffLocationId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(pd => pd.PickUpDateAndTime)
+                .IsRequired();
+            builder.Property(dd => dd.DropOffDateAndTime)
+               .IsRequired();
+            builder.Property(d => d.Duration)
+               .IsRequired();
+            builder.Property(a => a.TotalAmount)
+               .IsRequired();
+            builder.Property(a => a.PaymentType)
+              .IsRequired();
         }
 
         private List<Booking> CreateBookings()
@@ -27,7 +59,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                      PickUpDateAndTime = new DateTime(2022, 11, 17, 5, 0, 0),
                      DropOffDateAndTime = new DateTime(2022, 11, 23, 6, 0, 0),
                      Duration = 6,
-                     PaymentType = 0,
+                     PaymentType = PaymentType.Card,
                      CarId = 3,
                      CustomerId = 1,
                      PickUpLocationId = 1,
@@ -41,7 +73,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                      PickUpDateAndTime = new DateTime(2022, 11, 17, 3, 0, 0),
                      DropOffDateAndTime = new DateTime(2022, 11, 20, 5, 0, 0),
                      Duration = 3,
-                     PaymentType = 0,
+                     PaymentType = PaymentType.BankTransfer,
                      CarId = 2,
                      CustomerId = 2,
                      PickUpLocationId = 1,

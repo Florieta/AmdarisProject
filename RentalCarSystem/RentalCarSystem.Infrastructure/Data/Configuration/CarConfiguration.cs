@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RentalCarSystem.Infrastructure.Entities;
+using RentalCarSystem.Infrastructure.Entities.Enum.Car;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,35 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             builder.HasData(CreateCars());
+            builder.HasKey(c => c.Id);
+            builder.HasMany(b => b.Bookings);
+            builder.HasOne(l => l.Location);
+            builder.HasOne(c => c.Category);
+            builder.Property(r => r.RegNumber)
+                   .IsRequired()
+                   .HasMaxLength(8);
+            builder.Property(m => m.Make)
+                   .IsRequired()
+                   .HasMaxLength(20);
+            builder.Property(m => m.Model)
+                   .IsRequired()
+                   .HasMaxLength(20);
+            builder.Property(m => m.MakeYear)
+                   .IsRequired();
+            builder.Property(c => c.Color)
+                   .IsRequired()
+                   .HasMaxLength(20);
+            builder.Property(d => d.Description)
+                   .IsRequired()
+                   .HasMaxLength(5000);
+            builder.Property(i => i.ImageUrl)
+                   .IsRequired();
+            builder.Property(g => g.GearBox)
+                .IsRequired();
+            builder.Property(d => d.DailyRate)
+                .IsRequired();
+            builder.Property(a => a.IsAvailable)
+                .IsRequired();
         }
 
         private List<Car> CreateCars()
@@ -31,7 +61,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                       Color = "Black",
                       Description = "There are 5 doors, 5 seats, an air-condition, used fuel is petrol, highest equipment, sedan.",
                       ImageUrl = "https://images.dealer.com/autodata/us/640/color/2022/USD20TOC041A0/209.jpg?_returnflight_id=091119126",
-                      GearBox = 0,
+                      GearBox = GearBox.Manual,
                       DailyRate = 40,
                       IsAvailable = true,
                       CategoryId = 3,
@@ -48,7 +78,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                     Color = "Grey",
                     Description = "There are 5 doors, 5 seats, an air-condition, used fuel is petrol, no highest equipment.",
                     ImageUrl = "https://s7g10.scene7.com/is/image/hyundaiautoever/BC3_5DR_TopTrim_DG01-01_EXT_front_rgb_v01_w3a-1:4x3?wid=960&hei=720&fmt=png-alpha&fit=wrap,1",
-                    GearBox = 0,
+                    GearBox = GearBox.Manual,
                     DailyRate = 33,
                     IsAvailable = true,
                     CategoryId = 1,
@@ -65,7 +95,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                     Color = "White",
                     Description = "There are 5 doors, 5 seats, an air-condition, used fuel is petrol, highest equipment.",
                     ImageUrl = "https://www.citroen-eg.com/wp-content/uploads/2021/11/Polar-White-front1.jpg",
-                    GearBox = 0,
+                    GearBox = GearBox.Automatic,
                     DailyRate = 37,
                     IsAvailable = true,
                     CategoryId = 2,

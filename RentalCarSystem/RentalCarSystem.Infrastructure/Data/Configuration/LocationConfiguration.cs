@@ -15,6 +15,23 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Location> builder)
         {
             builder.HasData(CreateLocations());
+            builder.HasMany(c => c.Cars);
+            builder.HasMany(l => l.PickUpLocations);
+            builder.HasMany(l => l.DropOffLocations);
+            builder.Property(l => l.LocationName)
+                .IsRequired()
+                .HasMaxLength(50);
+            builder.Property(c => c.Country)
+                .IsRequired()
+                .HasMaxLength(20);
+            builder.Property(c => c.City)
+                .IsRequired()
+                .HasMaxLength(30);
+            builder.Property(c => c.Street)
+                .HasMaxLength(50);
+            builder.Property(c => c.PostCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
         private List<Location> CreateLocations()
         {
