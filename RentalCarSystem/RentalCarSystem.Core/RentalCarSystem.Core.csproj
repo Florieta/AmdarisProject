@@ -10,9 +10,4 @@
     <ProjectReference Include="..\RentalCarSystem.Infrastructure\RentalCarSystem.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

@@ -1,5 +1,7 @@
+
 using Microsoft.EntityFrameworkCore;
 using RentalCarManagementSystem.Infrastructure.Data;
+using RentalCarSystem.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
