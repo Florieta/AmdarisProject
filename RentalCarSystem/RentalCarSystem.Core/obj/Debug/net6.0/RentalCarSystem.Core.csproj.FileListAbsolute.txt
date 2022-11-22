@@ -1,0 +1,15 @@
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\bin\Debug\net6.0\RentalCarSystem.Core.deps.json
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\bin\Debug\net6.0\RentalCarSystem.Core.dll
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\bin\Debug\net6.0\RentalCarSystem.Core.pdb
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\bin\Debug\net6.0\RentalCarSystem.Infrastructure.dll
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\bin\Debug\net6.0\RentalCarSystem.Infrastructure.pdb
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.csproj.AssemblyReference.cache
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.AssemblyInfoInputs.cache
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.AssemblyInfo.cs
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.csproj.CoreCompileInputs.cache
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.csproj.CopyComplete
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.dll
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\refint\RentalCarSystem.Core.dll
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\RentalCarSystem.Core.pdb
+D:\SoftUni\source\AmdarisProject\RentalCarSystem\RentalCarSystem.Core\obj\Debug\net6.0\ref\RentalCarSystem.Core.dll
