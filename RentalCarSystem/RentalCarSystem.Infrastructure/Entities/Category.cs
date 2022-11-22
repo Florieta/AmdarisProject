@@ -9,16 +9,11 @@ namespace RentalCarSystem.Infrastructure.Entities
 {
     public class Category
     {
-       
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(20)]
         public string CategoryName { get; set; } = null!;
 
         public ICollection<Car> Cars { get; init; } = new List<Car>();
-       
 
     }
 }

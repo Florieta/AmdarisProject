@@ -15,23 +15,15 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Location> builder)
         {
             builder.HasData(CreateLocations());
-            builder.HasMany(c => c.Cars);
-            builder.HasMany(l => l.PickUpLocations);
-            builder.HasMany(l => l.DropOffLocations);
+            builder.HasKey(e => e.Id);
+
             builder.Property(l => l.LocationName)
                 .IsRequired()
-                .HasMaxLength(50);
-            builder.Property(c => c.Country)
-                .IsRequired()
-                .HasMaxLength(20);
-            builder.Property(c => c.City)
-                .IsRequired()
                 .HasMaxLength(30);
-            builder.Property(c => c.Street)
-                .HasMaxLength(50);
-            builder.Property(c => c.PostCode)
+            builder.Property(c => c.Address)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(100);
+       
         }
         private List<Location> CreateLocations()
         {
@@ -41,27 +33,22 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                  {
                       Id = 1,
                       LocationName = "Varna Center",
-                      Country = "Bulgaria",
-                      City = "Varna",
-                      PostCode = 9000
+                      Address = "Bulgaria, Varna, 9000"
                  },
 
                 new Location()
                 {
                     Id = 2,
                     LocationName = "Varna Airport",
-                      Country = "Bulgaria",
-                      City = "Varna",
-                      PostCode = 9000
+                    Address = "Bulgaria, Varna, 9000"
                 },
 
                 new Location()
                 {
                     Id = 3,
-                   LocationName = "Sofia Airport",
-                      Country = "Bulgaria",
-                      City = "Sofia",
-                      PostCode = 1000
+                    LocationName = "Sofia Airport",
+                    Address = "Bulgaria, Sofia, 1000"
+
                 }
             };
 

@@ -15,7 +15,10 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.HasData(CreateUsers());
-            builder.HasMany(u => u.UsersBookings);
+            //builder.HasMany(b => b.Bookings)
+            //    .WithOne(u => u.ApplicationUser)
+            //    .HasForeignKey(u => u.ApplicationUserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
             builder.Property(f => f.FirstName)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -34,32 +37,34 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
             var user = new ApplicationUser()
             {
                 Id = "d3211a8d-efde-4a19-8087-79cde4679276",
-                UserName = "Agent1",
-                NormalizedUserName = "AGENT1",
-                Email = "agent@mail.com",
-                NormalizedEmail = "AGENT@GMAIL.COM",
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                PhoneNumber = "1234567890",
                 FirstName = "Peter",
                 LastName = "Parker",
             };
 
             user.PasswordHash =
-                 hasher.HashPassword(user, "agent123");
+                 hasher.HashPassword(user, "admin123");
 
             users.Add(user);
 
             user = new ApplicationUser()
             {
                 Id = "c6e570fd-d889-4a67-a36a-0ecbe758bc2c",
-                UserName = "Agent2",
-                NormalizedUserName = "AGENT2",
-                Email = "guest@mail.com",
-                NormalizedEmail = "GUEST@GMAIL.COM",
+                UserName = "Agent1",
+                NormalizedUserName = "AGENT1",
+                Email = "agent@mail.com",
+                NormalizedEmail = "AGENT@GMAIL.COM",
+                PhoneNumber = "1234567890",
                 FirstName = "Peter",
                 LastName = "Brown",
             };
 
             user.PasswordHash =
-            hasher.HashPassword(user, "guest123");
+            hasher.HashPassword(user, "agent123");
 
             users.Add(user);
 

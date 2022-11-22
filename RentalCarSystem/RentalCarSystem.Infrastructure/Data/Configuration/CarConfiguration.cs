@@ -17,9 +17,9 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         {
             builder.HasData(CreateCars());
             builder.HasKey(c => c.Id);
-            builder.HasMany(b => b.Bookings);
-            builder.HasOne(l => l.Location);
-            builder.HasOne(c => c.Category);
+            builder.HasOne(c => c.Category)
+                .WithMany(b => b.Cars)
+                .HasForeignKey(c => c.CategoryId);
             builder.Property(r => r.RegNumber)
                    .IsRequired()
                    .HasMaxLength(8);
@@ -65,7 +65,6 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                       DailyRate = 40,
                       IsAvailable = true,
                       CategoryId = 3,
-                      LocationId = 2
                  },
 
                 new Car()
@@ -82,7 +81,6 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                     DailyRate = 33,
                     IsAvailable = true,
                     CategoryId = 1,
-                    LocationId = 1
                 },
 
                 new Car()
@@ -99,7 +97,6 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                     DailyRate = 37,
                     IsAvailable = true,
                     CategoryId = 2,
-                    LocationId = 2
                 }
             };
 

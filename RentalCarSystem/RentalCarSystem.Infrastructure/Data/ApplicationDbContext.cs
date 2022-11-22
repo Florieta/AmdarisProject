@@ -22,8 +22,6 @@ namespace RentalCarManagementSystem.Infrastructure.Data
 
         public DbSet<Location> Locations { get; init; } = null!;
 
-        public DbSet<UserBooking> UsersBookigs { get; init; } = null!;
-
         public DbSet<Insurance> Insurances { get; init; } = null!;
 
 
@@ -35,6 +33,7 @@ namespace RentalCarManagementSystem.Infrastructure.Data
             builder.ApplyConfiguration(new CarConfiguration());
             builder.ApplyConfiguration(new LocationConfiguration());
             builder.ApplyConfiguration(new InsuranceConfiguration());
+            builder.ApplyConfiguration(new ApplicationUserConfiguration());
 
             base.OnModelCreating(builder);
         }

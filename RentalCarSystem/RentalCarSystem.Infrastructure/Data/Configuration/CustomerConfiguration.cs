@@ -15,7 +15,9 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.HasData(CreateCustomers());
-            builder.HasMany(b => b.Bookings);
+
+            builder.HasKey(i => i.Id);
+
             builder.Property(c => c.FullName)
                 .IsRequired()
                 .HasMaxLength(75);

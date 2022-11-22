@@ -11,19 +11,10 @@ namespace RentalCarSystem.Infrastructure.Entities.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        [MaxLength(20)]
         public string FirstName { get; set; } = null!;
-
-        [Required]
-        [MaxLength(20)]
         public string LastName { get; set; } = null!;
-
-        [MaxLength(75)]
         public string? Address { get; set; }
-
         public string? ImageUrl { get; set; }
-
-        public ICollection<UserBooking> UsersBookings { get; set; } = new List<UserBooking>();
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

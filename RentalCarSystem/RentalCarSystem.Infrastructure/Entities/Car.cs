@@ -54,12 +54,6 @@ namespace RentalCarSystem.Infrastructure.Entities
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
 
-        [Required]
-        public int LocationId { get; set; }
-
-        [ForeignKey(nameof(LocationId))]
-        public Location Location { get; set; } = null!;
-
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

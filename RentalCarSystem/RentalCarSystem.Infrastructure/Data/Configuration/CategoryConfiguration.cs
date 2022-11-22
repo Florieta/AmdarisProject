@@ -17,7 +17,6 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
             builder.HasData(CreateCategories());
 
             builder.HasKey(c => c.Id);
-            builder.HasMany(c => c.Cars);
             builder.Property(c => c.CategoryName)
                 .IsRequired()
                 .HasMaxLength(20);

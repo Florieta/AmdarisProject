@@ -16,7 +16,7 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
             builder.HasData(CreateBookings());
-            builder.HasMany(ub => ub.UsersBookings);
+            builder.HasKey(c => c.Id);
             builder.HasOne(c => c.Car)
                 .WithMany(b => b.Bookings)
                 .HasForeignKey(c => c.CarId)
@@ -24,9 +24,11 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
             builder.HasOne(c => c.Customer)
                  .WithMany(b => b.Bookings)
                 .HasForeignKey(c => c.CustomerId)
-                .OnDelete(DeleteBehavior.Restrict); 
-
-            builder.HasOne(c => c.Insurance);
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(c => c.ApplicationUser)
+                .WithMany(b => b.Bookings)
+               .HasForeignKey(c => c.ApplicationUserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(t => t.PickUpLocation)
                  .WithMany(c => c.PickUpLocations)
@@ -65,7 +67,11 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                      PickUpLocationId = 1,
                      DropOffLocationId = 1,
                      InsuranceCode = 1,
-                     TotalAmount = 292
+                     TotalAmount = 292,
+                     IsActive = true,
+                     IsPaid = false,
+                     IsRented = false,
+                     ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
                 },
                 new Booking()
                 {
@@ -79,7 +85,11 @@ namespace RentalCarSystem.Infrastructure.Data.Configuration
                      PickUpLocationId = 1,
                      DropOffLocationId = 2,
                      InsuranceCode = 2,
-                     TotalAmount = 114
+                     TotalAmount = 114,
+                     IsActive = true,
+                     IsPaid = false,
+                     IsRented = false,
+                     ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
                 }
             };
 
