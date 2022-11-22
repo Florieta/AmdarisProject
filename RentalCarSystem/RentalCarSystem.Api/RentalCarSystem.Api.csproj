@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RentalCarSystem.Core\RentalCarSystem.Core.csproj" />
   </ItemGroup>
 
