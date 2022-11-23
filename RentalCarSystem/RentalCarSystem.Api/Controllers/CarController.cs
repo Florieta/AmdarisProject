@@ -15,11 +15,11 @@ namespace RentalCarSystem.Api.Controllers
             _carService = carService;
         }
 
-        //protected override void OnException(ExceptionContext filterContext)
-        //{
-        //    _log.LogExceptions(filterContext.Exception.ToString());
-        //    filterContext.ExceptionHandled = true;
-        //    this.View("Error").ExecuteResult(this.ControllerContext);
-        //}
+        protected void OnException(ExceptionContext filterContext)
+        {
+            _log.LogExceptions(filterContext.Exception.ToString());
+            filterContext.ExceptionHandled = true;
+            this.View("Error").ExecuteResult(this.ControllerContext);
+        }
     }
 }

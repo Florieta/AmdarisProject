@@ -4,18 +4,26 @@ namespace RentalCarSystem.Api.Logger
 {
     public sealed class Log : ILog
     {
+        private static Log instance = null!;
+        private static readonly object padlock = new object();
         private Log()
         {
 
         }
 
-        private static readonly Lazy<Log> instance = new Lazy<Log>();
-
         public static Log GetInstance
         {
             get
             {
-                return instance.Value;
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Log();
+                    }
+
+                    return instance;
+                }
             }
         }
         public void LogExceptions(string message)
