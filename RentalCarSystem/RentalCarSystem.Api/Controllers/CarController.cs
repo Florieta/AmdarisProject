@@ -1,25 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using RentalCarSystem.Api.Logger;
-using RentalCarSystem.Core.Services;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RentalCarSystem.Api.Controllers
 {
-    public class CarController : BaseController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CarController : ControllerBase
     {
-        private readonly ILog _log;
-        private readonly CarService _carService;
-        public CarController(CarService carService)
-        {
-            _log = Log.GetInstance;
-            _carService = carService;
-        }
-
-        protected void OnException(ExceptionContext filterContext)
-        {
-            _log.LogExceptions(filterContext.Exception.ToString());
-            filterContext.ExceptionHandled = true;
-            this.View("Error").ExecuteResult(this.ControllerContext);
-        }
     }
 }
