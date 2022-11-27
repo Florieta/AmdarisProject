@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentalCarManagementSystem.Infrastructure.Data.Common
+namespace RentalCarSystem.Infrastructure.Data.Common
 {
     public interface IRepository
     {

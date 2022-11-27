@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K6+qoR93dzhRqHsPHBVBen/TQ/uOboB6MdeCW61ZQMzQ4U9ts78sxtT5cW06Dkl0GCGvUFkzzGGTKpO0ZSA7VQ==",
+  "dgSpecHash": "8IDKn33adFDcd/8mXJs4YBV5iea1QEFcP1bDXdLO+i4q3HwjKPmW1lENpG7P0p0U+AKs/TVJl6afGVdT1CoKIw==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.csproj",
+  "projectFilePath": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.ConsolePresentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aspire\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Aspire\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

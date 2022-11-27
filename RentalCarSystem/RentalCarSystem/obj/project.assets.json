@@ -7106,9 +7106,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.csproj",
-      "projectName": "RentalCarSystem",
-      "projectPath": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.csproj",
+      "projectUniqueName": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.ConsolePresentation.csproj",
+      "projectName": "RentalCarSystem.ConsolePresentation",
+      "projectPath": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\RentalCarSystem.ConsolePresentation.csproj",
       "packagesPath": "C:\\Users\\Aspire\\.nuget\\packages\\",
       "outputPath": "D:\\SoftUni\\source\\AmdarisProject\\RentalCarSystem\\RentalCarSystem\\obj\\",
       "projectStyle": "PackageReference",
