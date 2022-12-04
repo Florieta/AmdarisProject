@@ -1,0 +1,14 @@
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.csproj.AssemblyReference.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.AssemblyInfoInputs.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.AssemblyInfo.cs
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.csproj.CoreCompileInputs.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\bin\Debug\net6.0\RentACar.Infrastructure.deps.json
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\bin\Debug\net6.0\RentACar.Infrastructure.runtimeconfig.json
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\bin\Debug\net6.0\RentACar.Infrastructure.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\bin\Debug\net6.0\RentACar.Infrastructure.pdb
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\refint\RentACar.Infrastructure.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.pdb
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\RentACar.Infrastructure.genruntimeconfig.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Infrastructure\obj\Debug\net6.0\ref\RentACar.Infrastructure.dll

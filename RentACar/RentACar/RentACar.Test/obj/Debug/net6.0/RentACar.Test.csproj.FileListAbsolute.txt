@@ -1,0 +1,6 @@
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\bin\Debug\net6.0\CoverletSourceRootsMapping
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\obj\Debug\net6.0\RentACar.Test.csproj.AssemblyReference.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\obj\Debug\net6.0\RentACar.Test.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\obj\Debug\net6.0\RentACar.Test.AssemblyInfoInputs.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\obj\Debug\net6.0\RentACar.Test.AssemblyInfo.cs
+D:\SoftUni\source\RentACar\RentACar\RentACar.Test\obj\Debug\net6.0\RentACar.Test.csproj.CoreCompileInputs.cache

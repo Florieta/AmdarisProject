@@ -1,0 +1,15 @@
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\bin\Debug\net6.0\RentACar.Core.deps.json
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\bin\Debug\net6.0\RentACar.Core.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\bin\Debug\net6.0\RentACar.Core.pdb
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\bin\Debug\net6.0\RentACar.Infrastructure.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\bin\Debug\net6.0\RentACar.Infrastructure.pdb
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.csproj.AssemblyReference.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.AssemblyInfoInputs.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.AssemblyInfo.cs
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.csproj.CoreCompileInputs.cache
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.csproj.CopyComplete
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\refint\RentACar.Core.dll
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\RentACar.Core.pdb
+D:\SoftUni\source\RentACar\RentACar\RentACar.Core\obj\Debug\net6.0\ref\RentACar.Core.dll
