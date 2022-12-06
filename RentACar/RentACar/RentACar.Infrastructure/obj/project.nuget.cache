@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mfJeakKjub7y3s3NXn/oeS+BGdf/9nf4FNuycvpJhcMxJOaWqWvG/AK2tRZFI2VyAbCLdX4sx79k700aEcrxkA==",
+  "dgSpecHash": "GjHnfiSp0PoyCbDcw+4PSXcC28pr+GpLOvMTtwlenT9YFcDi/FKBJZDoiI00pNn/cA/meQp/u4q+lec81vsVKg==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
+  "projectFilePath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aspire\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Aspire\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

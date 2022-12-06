@@ -8148,11 +8148,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.WebApi\\RentACar.WebApi.csproj",
+      "projectUniqueName": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.WebApi\\RentACar.WebApi.csproj",
       "projectName": "RentACar.WebApi",
-      "projectPath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.WebApi\\RentACar.WebApi.csproj",
+      "projectPath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.WebApi\\RentACar.WebApi.csproj",
       "packagesPath": "C:\\Users\\Aspire\\.nuget\\packages\\",
-      "outputPath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.WebApi\\obj\\",
+      "outputPath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aspire\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8169,8 +8169,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Core\\RentACar.Core.csproj": {
-              "projectPath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Core\\RentACar.Core.csproj"
+            "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Core\\RentACar.Core.csproj": {
+              "projectPath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Core\\RentACar.Core.csproj"
             }
           }
         }

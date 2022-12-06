@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj": {}
+    "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj": {
+    "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
+        "projectUniqueName": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
         "projectName": "RentACar.Infrastructure",
-        "projectPath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
+        "projectPath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\RentACar.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Aspire\\.nuget\\packages\\",
-        "outputPath": "D:\\SoftUni\\source\\RentACar\\RentACar\\RentACar.Infrastructure\\obj\\",
+        "outputPath": "D:\\SoftUni\\source\\AmdarisProject\\RentACar\\RentACar\\RentACar.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aspire\\AppData\\Roaming\\NuGet\\NuGet.Config",
