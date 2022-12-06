@@ -113,7 +113,7 @@ namespace RentACar.Core.Services
         public async Task<bool> IsDealer(string userId)
         {
             return await repo.All<ApplicationUser>().AnyAsync(a => a.Id == userId && a.IsDealer == true);
-                
+
         }
 
         public async Task<bool> CategoryExists(int categoryId)
@@ -128,28 +128,6 @@ namespace RentACar.Core.Services
         }
 
 
-        //public async Task CheckOut(int id)
-        //{
-        //    var car = await repo.GetByIdAsync<Car>(id);
-        //    if (car == null)
-        //    {
-        //        throw new ArgumentException("Invalid car ID");
-        //    }
-
-        //    car.IsAvailable = true;
-
-        //    await repo.SaveChangesAsync();
-        //}
-
-        //public async Task<bool> IsAvailable(int id)
-        //{
-        //    return (await repo.GetByIdAsync<Car>(id)).IsAvailable != false;
-        //}
-
-        //public async Task<bool> Exists(int id)
-        //{
-        //    return await repo.AllReadonly<Car>()
-        //        .AnyAsync(c => c.Id == id);
-        //}
     }
-    }
+}
+

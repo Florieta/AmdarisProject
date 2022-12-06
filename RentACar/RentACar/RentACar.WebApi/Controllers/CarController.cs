@@ -33,58 +33,58 @@ namespace RentACar.WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Car>> GetCar(int id)
-        {
-            var car = await carService.GetCarById(id);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Car>> GetCar(int id)
+        //{
+        //    var car = await carService.GetCarById(id);
 
-            if (car == null)
-            {
-                return NotFound();
-            }
+        //    if (car == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return car;
-        }
+        //    return car;
+        //}
        
 
-        [HttpPost]
-        [Route("Create")]
+        //[HttpPost]
+        //[Route("Create")]
 
-        public async Task<ActionResult<Car>> Add(CreateCarInputModel model)
-        {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //public async Task<ActionResult<Car>> Add(CreateCarInputModel model)
+        //{
+        //    var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (userId == null)
-            {
-                return BadRequest();
-            }
+        //    if (userId == null)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            if ((await carService.IsDealer(userId)) == false)
-            {
-                return RedirectToAction(nameof(DealerController.Become), "Dealer");
-            }
+        //    if ((await carService.IsDealer(userId)) == false)
+        //    {
+        //        return RedirectToAction(nameof(DealerController.Become), "Dealer");
+        //    }
 
-            if ((await carService.CategoryExists(model.CategoryId)) == false)
-            {
-                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
-            }
+        //    if ((await carService.CategoryExists(model.CategoryId)) == false)
+        //    {
+        //        ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
+        //    }
 
 
-            await carService.CreateCar(model);
+        //    await carService.CreateCar(model);
 
-            return CreatedAtAction("GetCar", new { id = model.Id, model });
-        }
+        //    return CreatedAtAction("GetCar", new { id = model.Id, model });
+        //}
 
-        [HttpGet]
-        [Produces("application/json")]
-        [ProducesResponseType(200, Type = typeof(CarDetailsViewModel))]
-        [ProducesResponseType(500)]
-        public async Task<IActionResult> Details(int id)
-        {
-            var carModel = await carService.CarDetailsById(id);
+        //[HttpGet]
+        //[Produces("application/json")]
+        //[ProducesResponseType(200, Type = typeof(CarDetailsViewModel))]
+        //[ProducesResponseType(500)]
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var carModel = await carService.CarDetailsById(id);
 
-            return Ok(carModel);
-        }
+        //    return Ok(carModel);
+        //}
 
         //[HttpGet]
         //[ProducesResponseType(200, Type = typeof(CreateCarInputModel))]

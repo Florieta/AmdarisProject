@@ -11,24 +11,24 @@ namespace RentACar.WebApi.Controllers
     {
         private readonly IDealerService dealerService;
 
-        public DealerController(IDealerService _dealerService)
-        {
-            dealerService = _dealerService;
-        }
+        //public DealerController(IDealerService _dealerService)
+        //{
+        //    dealerService = _dealerService;
+        //}
 
-        [HttpPut]
-        public async Task<IActionResult> Become()
-        {
-            var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //[HttpPut]
+        //public async Task<IActionResult> Become()
+        //{
+        //    var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (userId == null)
-            {
-                return BadRequest();
-            }
-            await dealerService.BecomeDealer(userId);
+        //    if (userId == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    await dealerService.BecomeDealer(userId);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
     }
 }
