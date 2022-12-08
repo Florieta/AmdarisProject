@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentACar.Core.Contracts;
-using RentACar.Core.Services;
+using RentACar.Application.Abstract;
 using RentACar.Infrastructure.Data;
-using RentACar.Infrastructure.Data.Common;
+using RentACar.Infrastructure.Repository;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -10,8 +9,10 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ICarService, CarService>();
-            services.AddScoped<IDealerService, DealerService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }
@@ -21,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var connectionString = config.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
-            services.AddScoped<IRepository, Repository>();
+            //services.AddScoped<IRepository, Repository>();
 
             return services;
         }

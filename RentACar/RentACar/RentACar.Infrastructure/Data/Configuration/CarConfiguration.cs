@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentACar.Infrastructure.Entitites;
-using RentACar.Infrastructure.Entitites.Enum.Car;
+using RentACar.Domain.Entitites;
+using RentACar.Domain.Entitites.Enum.Car;
 using System;
 using System.Collections.Generic;
 using System.Linq;

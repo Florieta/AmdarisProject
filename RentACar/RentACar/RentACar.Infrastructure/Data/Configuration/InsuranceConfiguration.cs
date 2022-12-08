@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentACar.Infrastructure.Entitites;
+using RentACar.Domain.Entitites;
 using System;
 using System.Collections.Generic;
 using System.Linq;

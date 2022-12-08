@@ -1,113 +1,81 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using RentACar.Api.Logger;
-using RentACar.Core.Contracts;
-using RentACar.Core.Models.Car;
-using RentalCarManagementSystem.Core.Models.Car;
 using System.Security.Claims;
-using RentACar.Infrastructure.Entitites;
+using RentACar.Application.Cars.Queries;
+using RentACar.Domain.Entitites;
+using RentACar.WebApi.Dtos.Car;
+using RentACar.Application.Cars.Commands.Create;
+using RentACar.Application.Cars.Commands.Update;
 
 namespace RentACar.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Car")]
     [ApiController]
 
-    public class CarController : ControllerBase
+    public class CarController : BaseController<CarController>
     {
-        private readonly ICarService carService;
-
-
-        public CarController(ICarService carService)
+        [HttpGet]
+        [Route("/All")]
+        public async Task<IActionResult> All()
         {
-            this.carService = carService;
+            GetAllCars query = new GetAllCars();
+            List<Car> result = await base.Madiator.Send(query);
+            List<GetCarDto> mappedResult = base.Mapper.Map<List<GetCarDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
-        [Produces("application/json")]
-        [ProducesResponseType(200, Type = typeof(AllCarsViewModel))]
-        [ProducesResponseType(500)]
-        public async Task<IActionResult> All()
+        [Route("/GetById/{carId}")]
+        public async Task<IActionResult> GetById(int carId)
         {
-            var model = await carService.GetAllCarsAsync();
+            GetCarById query = new GetCarById()
+            {
+                Id = carId
+            };
 
-            return Ok(model);
+            Car car = await base.Madiator.Send(query);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
+            return Ok(getCarDto);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Car>> GetCar(int id)
-        //{
-        //    var car = await carService.GetCarById(id);
+        [HttpPost]
+        [Route("/Add")]
+        public async Task<IActionResult> Add([FromBody] AddCarDto addCarDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (car == null)
-        //    {
-        //        return NotFound();
-        //    }
+            CreateCar command = base.Mapper.Map<CreateCar>(addCarDto);
+            Car car = await base.Madiator.Send(command);
+            GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
+            return CreatedAtAction(nameof(GetById), new { carId = car.Id }, getCarDto);
+        }
 
-        //    return car;
-        //}
-       
+        [HttpPost]
+        [Route("/Edir/{carId}")]
+        public async Task<IActionResult> Edit([FromBody] EditCarDto editCarDto, int carId)
+        {
+            UpdateCar command = base.Mapper.Map<UpdateCar>(editCarDto);
 
-        //[HttpPost]
-        //[Route("Create")]
+            command.Id = carId;
 
-        //public async Task<ActionResult<Car>> Add(CreateCarInputModel model)
-        //{
-        //    var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            Car car = await base.Madiator.Send(command);
 
-        //    if (userId == null)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (car == null)
+            {
+                return NotFound();
+            }
 
-        //    if ((await carService.IsDealer(userId)) == false)
-        //    {
-        //        return RedirectToAction(nameof(DealerController.Become), "Dealer");
-        //    }
-
-        //    if ((await carService.CategoryExists(model.CategoryId)) == false)
-        //    {
-        //        ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists");
-        //    }
-
-
-        //    await carService.CreateCar(model);
-
-        //    return CreatedAtAction("GetCar", new { id = model.Id, model });
-        //}
-
-        //[HttpGet]
-        //[Produces("application/json")]
-        //[ProducesResponseType(200, Type = typeof(CarDetailsViewModel))]
-        //[ProducesResponseType(500)]
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var carModel = await carService.CarDetailsById(id);
-
-        //    return Ok(carModel);
-        //}
-
-        //[HttpGet]
-        //[ProducesResponseType(200, Type = typeof(CreateCarInputModel))]
-        //[ProducesResponseType(500)]
-        //public async Task<IActionResult> Add()
-        //{
-        //    var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-        //    if (userId == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if ((await carService.IsDealer(userId)) == false)
-        //    {
-        //        return RedirectToAction(nameof(DealerController.Become), "Dealer");
-        //    }
-
-        //    var model = new CreateCarInputModel()
-        //    {
-        //        Categories = await carService.GetCategoriesAsync()
-        //    };
-
-        //    return Ok(model);
-        //}
+            return NoContent();
+        }
     }
 }

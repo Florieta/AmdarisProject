@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Infrastructure.Data.Configuration;
-using RentACar.Infrastructure.Entitites;
-using RentACar.Infrastructure.Entitites.Identity;
+using RentACar.Domain.Entitites;
+using RentACar.Domain.Entitites.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
