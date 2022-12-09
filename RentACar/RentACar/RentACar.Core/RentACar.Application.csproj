@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Categories\Commands\Delete\" />
-    <Folder Include="Categories\Queries\" />
   </ItemGroup>
 
 </Project>

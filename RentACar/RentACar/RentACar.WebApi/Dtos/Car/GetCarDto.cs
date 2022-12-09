@@ -32,8 +32,6 @@ namespace RentACar.WebApi.Dtos.Car
 
         public int CategoryId { get; set; }
 
-        public string ApplicationUserId { get; set; } = null!;
 
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

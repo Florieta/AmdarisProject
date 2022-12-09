@@ -11,5 +11,5 @@ namespace RentACar.Application.Orders.Queries
     public class GetOrderById : IRequest<Order>
     {
         public int Id { get; set; }
-}
+    }
 }
