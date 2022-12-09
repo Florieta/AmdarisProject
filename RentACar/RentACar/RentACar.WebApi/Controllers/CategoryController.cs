@@ -5,8 +5,7 @@ using RentACar.Application.Categories.Commands.Update;
 using RentACar.Application.Categories.Queries;
 using RentACar.Application.Orders.Queries;
 using RentACar.Domain.Entitites;
-using RentACar.WebApi.Dtos.Category;
-using RentACar.WebApi.Dtos.Order;
+using RentACar.WebApi.ViewModels.Category;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -15,7 +14,7 @@ namespace RentACar.WebApi.Controllers
     public class CategoryController : BaseController<CategoryController>
     {
         [HttpGet]
-        [Route("/All")]
+        [Route("All")]
         public async Task<IActionResult> All()
         {
             GetAllCategories query = new GetAllCategories();
@@ -25,7 +24,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/GetById/{categoryId}")]
+        [Route("GetById/{categoryId}")]
         public async Task<IActionResult> GetById(int categoryId)
         {
             GetCategoryById query = new GetCategoryById()
@@ -45,7 +44,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Add")]
+        [Route("Add")]
         public async Task<IActionResult> Add([FromBody] AddCategoryDto addCategoryDto)
         {
             CreateCategory command = base.Mapper.Map<CreateCategory>(addCategoryDto);
@@ -55,7 +54,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Edir/{categoryId}")]
+        [Route("Edir/{categoryId}")]
         public async Task<IActionResult> Edit([FromBody] EditCategoryDto editCategoryDto, int categoryId)
         {
             UpdateCategory command = base.Mapper.Map<UpdateCategory>(editCategoryDto);

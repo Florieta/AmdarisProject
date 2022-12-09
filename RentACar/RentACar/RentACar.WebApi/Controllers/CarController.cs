@@ -4,7 +4,7 @@ using RentACar.Api.Logger;
 using System.Security.Claims;
 using RentACar.Application.Cars.Queries;
 using RentACar.Domain.Entitites;
-using RentACar.WebApi.Dtos.Car;
+using RentACar.WebApi.ViewModels.Car;
 using RentACar.Application.Cars.Commands.Create;
 using RentACar.Application.Cars.Commands.Update;
 
@@ -16,7 +16,7 @@ namespace RentACar.WebApi.Controllers
     public class CarController : BaseController<CarController>
     {
         [HttpGet]
-        [Route("/All")]
+        [Route("All")]
         public async Task<IActionResult> All()
         {
             GetAllCars query = new GetAllCars();
@@ -26,7 +26,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/GetById/{carId}")]
+        [Route("GetById/{carId}")]
         public async Task<IActionResult> GetById(int carId)
         {
             GetCarById query = new GetCarById()
@@ -46,14 +46,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Add")]
+        [Route("Add")]
         public async Task<IActionResult> Add([FromBody] AddCarDto addCarDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             CreateCar command = base.Mapper.Map<CreateCar>(addCarDto);
             Car car = await base.Madiator.Send(command);
             GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
@@ -61,7 +56,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Edir/{carId}")]
+        [Route("Edir/{carId}")]
         public async Task<IActionResult> Edit([FromBody] EditCarDto editCarDto, int carId)
         {
             UpdateCar command = base.Mapper.Map<UpdateCar>(editCarDto);

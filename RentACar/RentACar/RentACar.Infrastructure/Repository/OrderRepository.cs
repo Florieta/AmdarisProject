@@ -26,7 +26,7 @@ namespace RentACar.Infrastructure.Repository
 
         public async Task<List<Order>> GetAll()
         {
-            return await _context.Orders
+            return await _context.Orders.Where(b => b.IsActive == true)
                 .ToListAsync();
         }
 

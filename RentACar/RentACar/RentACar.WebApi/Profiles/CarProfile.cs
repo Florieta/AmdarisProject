@@ -2,7 +2,7 @@
 using RentACar.Application.Cars.Commands.Create;
 using RentACar.Application.Cars.Commands.Update;
 using RentACar.Domain.Entitites;
-using RentACar.WebApi.Dtos.Car;
+using RentACar.WebApi.ViewModels.Car;
 
 namespace RentACar.WebApi.Profiles
 {

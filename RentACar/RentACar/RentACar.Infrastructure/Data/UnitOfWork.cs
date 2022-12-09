@@ -11,25 +11,27 @@ namespace RentACar.Infrastructure.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dataContext;
+
+        //IApplicationUserRepository userRepository, IInsuranceRepository insuranceRepository,
+        //    ILocationRepository locationRepository,
         public UnitOfWork(ApplicationDbContext dataCOntext, ICarRepository carRepository,
-            ICategoryRepository categoryRepository, IApplicationUserRepository userRepository, IInsuranceRepository insuranceRepository,
-            ILocationRepository locationRepository, IOrderRepository orderRepository)
+            ICategoryRepository categoryRepository, IOrderRepository orderRepository)
         {
             _dataContext = dataCOntext;
             CarRepository = carRepository;
             CategoryRepository = categoryRepository;
-            ApplicationUserRepository = userRepository;
-            InsuranceRepository = insuranceRepository;
-            LocationRepository = locationRepository;
+            //ApplicationUserRepository = userRepository;
+            //InsuranceRepository = insuranceRepository;
+            //LocationRepository = locationRepository;
             OrderRepository = orderRepository;
 
         }
 
         public ICarRepository CarRepository { get; private set; }
         public ICategoryRepository CategoryRepository { get; private set; }
-        public IApplicationUserRepository ApplicationUserRepository { get; private set; }
-        public IInsuranceRepository InsuranceRepository { get; private set; }
-        public ILocationRepository LocationRepository { get; private set; }
+        //public IApplicationUserRepository ApplicationUserRepository { get; private set; }
+        //public IInsuranceRepository InsuranceRepository { get; private set; }
+        //public ILocationRepository LocationRepository { get; private set; }
         public IOrderRepository OrderRepository { get; private set; }
 
         public async Task Save()

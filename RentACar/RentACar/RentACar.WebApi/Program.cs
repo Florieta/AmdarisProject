@@ -28,6 +28,7 @@ builder.Services.AddMediatR(typeof(ICarRepository));
 builder.Services.AddMediatR(typeof(ICategoryRepository));
 builder.Services.AddMediatR(typeof(IOrderRepository));
 
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

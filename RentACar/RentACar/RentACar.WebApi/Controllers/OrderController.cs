@@ -4,7 +4,7 @@ using RentACar.Application.Orders.Commands.Create;
 using RentACar.Application.Orders.Commands.Update;
 using RentACar.Application.Orders.Queries;
 using RentACar.Domain.Entitites;
-using RentACar.WebApi.Dtos.Order;
+using RentACar.WebApi.ViewModels.Order;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -13,7 +13,7 @@ namespace RentACar.WebApi.Controllers
     public class OrderController : BaseController<OrderController>
     {
         [HttpGet]
-        [Route("/All")]
+        [Route("All")]
         public async Task<IActionResult> All()
         {
             GetAllOrders query = new GetAllOrders();
@@ -23,12 +23,12 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/GetById/{carId}")]
-        public async Task<IActionResult> GetById(int carId)
+        [Route("GetById/{orderId}")]
+        public async Task<IActionResult> GetById(int orderId)
         {
             GetOrderById query = new GetOrderById()
             {
-                Id = carId
+                Id = orderId
             };
 
             Order order = await base.Madiator.Send(query);
@@ -43,18 +43,18 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/Add")]
+        [Route("Add")]
         public async Task<IActionResult> Add([FromBody] AddOrderDto addOrderDto)
         {
-           
+
             CreateOrder command = base.Mapper.Map<CreateOrder>(addOrderDto);
             Order order = await base.Madiator.Send(command);
-            GetOrderDto getCarDto = base.Mapper.Map<GetOrderDto>(order);
-            return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getCarDto);
+            GetOrderDto getOrderDto = base.Mapper.Map<GetOrderDto>(order);
+            return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
         }
 
         [HttpPost]
-        [Route("/Edir/{orderId}")]
+        [Route("Edir/{orderId}")]
         public async Task<IActionResult> Edit([FromBody] EditOrderDto editOrderDto, int orderId)
         {
             UpdateOrder command = base.Mapper.Map<UpdateOrder>(editOrderDto);
