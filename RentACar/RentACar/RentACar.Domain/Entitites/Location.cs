@@ -14,6 +14,8 @@ namespace RentACar.Domain.Entitites
 
         public string Address { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         [InverseProperty("PickUpLocation")]
         public ICollection<Order> PickUpLocations { get; set; } = new List<Order>();
 

@@ -32,11 +32,11 @@ namespace RentACar.Application.Orders.Commands.Update
                 CarId = request.CarId,
                 PickUpLocationId = request.PickUpLocationId,
                 DropOffLocationId = request.DropOffLocationId,
-                InsuranceCode = request.InsuranceCode
+                Insurance = request.Insurance
             };
 
             await this.uniteOfWorkRepo.OrderRepository.Update(order);
-            await this.uniteOfWorkRepo.Save();
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return order;
         }

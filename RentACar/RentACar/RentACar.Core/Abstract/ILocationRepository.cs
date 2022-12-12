@@ -9,13 +9,13 @@ namespace RentACar.Application.Abstract
 {
     public interface ILocationRepository
     {
-        Task<Location> GetById(int locationId);
+        Task<Location> GetByIdAsync(int locationId);
 
-        Task Add(Location location);
+        Task AddAsync(Location location);
 
         void Remove(Location location);
 
-        Task<List<Location>> GetAll();
+        Task<List<Location>> GetAllAsync();
 
         Task Update(Location location);
     }

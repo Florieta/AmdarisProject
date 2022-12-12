@@ -25,17 +25,20 @@ namespace RentACar.Infrastructure.Data
 
         public DbSet<Location> Locations { get; init; } = null!;
 
-        public DbSet<Insurance> Insurances { get; init; } = null!;
+        public DbSet<Renter> Renters { get; init; } = null!;
 
+        public DbSet<Dealer> Dealers { get; init; } = null!;
 
+        public DbSet<Rating> Ratings { get; init; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new CarConfiguration());
             builder.ApplyConfiguration(new LocationConfiguration());
-            builder.ApplyConfiguration(new InsuranceConfiguration());
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
+            builder.ApplyConfiguration(new RenterConfiguration());
+            builder.ApplyConfiguration(new DealerConfiguration());
 
             base.OnModelCreating(builder);
         }

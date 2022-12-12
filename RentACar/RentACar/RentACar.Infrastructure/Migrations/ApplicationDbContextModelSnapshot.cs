@@ -8,7 +8,7 @@ using RentACar.Infrastructure.Data;
 
 #nullable disable
 
-namespace RentACar.Infrastructure.Data.Migrations
+namespace RentACar.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -155,7 +155,7 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Car", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Car", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,15 +166,14 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.Property<bool>("AirCondition")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("DailyRate")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Doors")
                         .HasColumnType("int");
@@ -221,9 +220,9 @@ namespace RentACar.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("DealerId");
 
                     b.ToTable("Cars");
 
@@ -232,9 +231,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             AirCondition = true,
-                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
                             CategoryId = 3,
                             DailyRate = 40m,
+                            DealerId = 1,
                             Doors = 5,
                             Fuel = 2,
                             ImageUrl = "https://images.dealer.com/autodata/us/640/color/2022/USD20TOC041A0/209.jpg?_returnflight_id=091119126",
@@ -252,9 +251,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = 2,
                             AirCondition = true,
-                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
                             CategoryId = 1,
                             DailyRate = 33m,
+                            DealerId = 1,
                             Doors = 5,
                             Fuel = 1,
                             ImageUrl = "https://s7g10.scene7.com/is/image/hyundaiautoever/BC3_5DR_TopTrim_DG01-01_EXT_front_rgb_v01_w3a-1:4x3?wid=960&hei=720&fmt=png-alpha&fit=wrap,1",
@@ -272,9 +271,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = 3,
                             AirCondition = true,
-                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
                             CategoryId = 2,
                             DailyRate = 37m,
+                            DealerId = 1,
                             Doors = 5,
                             Fuel = 4,
                             ImageUrl = "https://www.citroen-eg.com/wp-content/uploads/2021/11/Polar-White-front1.jpg",
@@ -290,7 +289,7 @@ namespace RentACar.Infrastructure.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Category", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -303,6 +302,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -311,21 +313,66 @@ namespace RentACar.Infrastructure.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryName = "Economy"
+                            CategoryName = "Economy",
+                            IsDeleted = false
                         },
                         new
                         {
                             Id = 2,
-                            CategoryName = "Compact"
+                            CategoryName = "Compact",
+                            IsDeleted = false
                         },
                         new
                         {
                             Id = 3,
-                            CategoryName = "Intermediate"
+                            CategoryName = "Intermediate",
+                            IsDeleted = false
                         });
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Dealer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("CompanyNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dealers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Sofia, Bulgaria, 1000, West Park",
+                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
+                            CompanyName = "TopCars",
+                            CompanyNumber = "12345674"
+                        });
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -333,17 +380,12 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DrivingLicenseNumber")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<int?>("DealerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -356,9 +398,6 @@ namespace RentACar.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("IsDealer")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -388,6 +427,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("RenterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -400,6 +442,10 @@ namespace RentACar.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DealerId")
+                        .IsUnique()
+                        .HasFilter("[DealerId] IS NOT NULL");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -408,6 +454,10 @@ namespace RentACar.Infrastructure.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("RenterId")
+                        .IsUnique()
+                        .HasFilter("[RenterId] IS NOT NULL");
+
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
@@ -415,19 +465,19 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = "d3211a8d-efde-4a19-8087-79cde4679276",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e287474d-6bed-4d6c-af60-d82d404c90ae",
+                            ConcurrencyStamp = "afbca656-e897-463f-b805-413fac1f7355",
+                            DealerId = 1,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Peter",
-                            IsDealer = true,
                             LastName = "Parker",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKwUu564xPOrdPLEkD2ntUEhyUxQ66acwAAnngO6Rfi7EK7b8gngET+1GgbxSNW4wQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHMp/IZ9hl8G16ACqOuwCXnQpEcneSSroLx1QYBVFyHBa4/TCxjKUH0LKLUCuX5k2g==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6abeb0b-09e5-4652-ab79-980eafc5e422",
+                            SecurityStamp = "acb099da-8efa-4072-acc5-8f6e8efd1633",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -435,60 +485,25 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = "c6e570fd-d889-4a67-a36a-0ecbe758bc2c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "723338dd-553e-4133-9028-a18267ad95b5",
+                            ConcurrencyStamp = "f9d60bd8-593b-45d2-b86b-8ac7823f14dd",
                             Email = "user@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Peter",
-                            IsDealer = false,
                             LastName = "Brown",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAENstEE4obZNpL1TbsqmqKTsAYrjiLdHFDqWvXdx22QlbuQqUD92RqPZ21mmQ/fokyA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDUHJXnIGhlpz6dqCpzDPBGr7cjOM/WGa3dxnGTFEYpkSkaUj0o2ouVEFpYvUMxUUw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9523f731-641c-4403-aeaf-d8bf500e2d62",
+                            RenterId = 1,
+                            SecurityStamp = "5b446532-6bcd-4bec-b49a-f9ce9f8263ea",
                             TwoFactorEnabled = false,
                             UserName = "User1"
                         });
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Insurance", b =>
-                {
-                    b.Property<int>("InsuranceCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceCode"));
-
-                    b.Property<decimal>("CostPerDay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TypeOfInsurance")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("InsuranceCode");
-
-                    b.ToTable("Insurances");
-
-                    b.HasData(
-                        new
-                        {
-                            InsuranceCode = 1,
-                            CostPerDay = 10m,
-                            TypeOfInsurance = "FullCoverage"
-                        },
-                        new
-                        {
-                            InsuranceCode = 2,
-                            CostPerDay = 5m,
-                            TypeOfInsurance = "HalfCoverage"
-                        });
-                });
-
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Location", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Location", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -500,6 +515,9 @@ namespace RentACar.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LocationName")
                         .IsRequired()
@@ -515,33 +533,32 @@ namespace RentACar.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Address = "Bulgaria, Varna, 9000",
+                            IsDeleted = false,
                             LocationName = "Varna Center"
                         },
                         new
                         {
                             Id = 2,
                             Address = "Bulgaria, Varna, 9000",
+                            IsDeleted = false,
                             LocationName = "Varna Airport"
                         },
                         new
                         {
                             Id = 3,
                             Address = "Bulgaria, Sofia, 1000",
+                            IsDeleted = false,
                             LocationName = "Sofia Airport"
                         });
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Order", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
@@ -555,8 +572,8 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<int>("InsuranceCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Insurance")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -576,20 +593,21 @@ namespace RentACar.Infrastructure.Data.Migrations
                     b.Property<int>("PickUpLocationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RenterId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("CarId");
 
                     b.HasIndex("DropOffLocationId");
 
-                    b.HasIndex("InsuranceCode");
-
                     b.HasIndex("PickUpLocationId");
+
+                    b.HasIndex("RenterId");
 
                     b.ToTable("Orders");
 
@@ -597,36 +615,105 @@ namespace RentACar.Infrastructure.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
                             CarId = 3,
                             DropOffDateAndTime = new DateTime(2022, 11, 23, 6, 0, 0, 0, DateTimeKind.Unspecified),
                             DropOffLocationId = 1,
                             Duration = 6,
-                            InsuranceCode = 1,
                             IsActive = true,
                             IsDeleted = false,
                             IsPaid = false,
                             PaymentType = 1,
                             PickUpDateAndTime = new DateTime(2022, 11, 17, 5, 0, 0, 0, DateTimeKind.Unspecified),
                             PickUpLocationId = 1,
+                            RenterId = 1,
                             TotalAmount = 292m
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276",
                             CarId = 2,
                             DropOffDateAndTime = new DateTime(2022, 11, 20, 5, 0, 0, 0, DateTimeKind.Unspecified),
                             DropOffLocationId = 2,
                             Duration = 3,
-                            InsuranceCode = 2,
                             IsActive = true,
                             IsDeleted = false,
                             IsPaid = false,
                             PaymentType = 2,
                             PickUpDateAndTime = new DateTime(2022, 11, 17, 3, 0, 0, 0, DateTimeKind.Unspecified),
                             PickUpLocationId = 1,
+                            RenterId = 1,
                             TotalAmount = 114m
+                        });
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RenterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("RenterId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Renter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("Age")
+                        .HasMaxLength(20)
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DrivingLicenceNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("ExpiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Renters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Sofia, Bulgaria, Mladost 3",
+                            Age = 26,
+                            ApplicationUserId = "c6e570fd-d889-4a67-a36a-0ecbe758bc2c",
+                            DrivingLicenceNumber = "12345674",
+                            ExpiredDate = new DateTime(2025, 11, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -641,7 +728,7 @@ namespace RentACar.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", null)
+                    b.HasOne("RentACar.Domain.Entitites.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -650,7 +737,7 @@ namespace RentACar.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", null)
+                    b.HasOne("RentACar.Domain.Entitites.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -665,7 +752,7 @@ namespace RentACar.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", null)
+                    b.HasOne("RentACar.Domain.Entitites.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -674,102 +761,136 @@ namespace RentACar.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", null)
+                    b.HasOne("RentACar.Domain.Entitites.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Car", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Car", b =>
                 {
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany("Cars")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RentACar.Infrastructure.Entitites.Category", "Category")
+                    b.HasOne("RentACar.Domain.Entitites.Category", "Category")
                         .WithMany("Cars")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Order", b =>
-                {
-                    b.HasOne("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("RentACar.Domain.Entitites.Dealer", "Dealer")
+                        .WithMany("Cars")
+                        .HasForeignKey("DealerId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Infrastructure.Entitites.Car", "Car")
+                    b.Navigation("Category");
+
+                    b.Navigation("Dealer");
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Identity.ApplicationUser", b =>
+                {
+                    b.HasOne("RentACar.Domain.Entitites.Dealer", "Dealer")
+                        .WithOne("ApplicationUser")
+                        .HasForeignKey("RentACar.Domain.Entitites.Identity.ApplicationUser", "DealerId");
+
+                    b.HasOne("RentACar.Domain.Entitites.Renter", "Renter")
+                        .WithOne("ApplicationUser")
+                        .HasForeignKey("RentACar.Domain.Entitites.Identity.ApplicationUser", "RenterId");
+
+                    b.Navigation("Dealer");
+
+                    b.Navigation("Renter");
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Order", b =>
+                {
+                    b.HasOne("RentACar.Domain.Entitites.Car", "Car")
                         .WithMany("Orders")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Infrastructure.Entitites.Location", "DropOffLocation")
+                    b.HasOne("RentACar.Domain.Entitites.Location", "DropOffLocation")
                         .WithMany("DropOffLocations")
                         .HasForeignKey("DropOffLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RentACar.Infrastructure.Entitites.Insurance", "Insurance")
-                        .WithMany("Orders")
-                        .HasForeignKey("InsuranceCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RentACar.Infrastructure.Entitites.Location", "PickUpLocation")
+                    b.HasOne("RentACar.Domain.Entitites.Location", "PickUpLocation")
                         .WithMany("PickUpLocations")
                         .HasForeignKey("PickUpLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                    b.HasOne("RentACar.Domain.Entitites.Renter", "Renter")
+                        .WithMany("Orders")
+                        .HasForeignKey("RenterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Car");
 
                     b.Navigation("DropOffLocation");
 
-                    b.Navigation("Insurance");
-
                     b.Navigation("PickUpLocation");
+
+                    b.Navigation("Renter");
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Car", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Rating", b =>
+                {
+                    b.HasOne("RentACar.Domain.Entitites.Car", "Car")
+                        .WithMany("Ratings")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RentACar.Domain.Entitites.Renter", "Renter")
+                        .WithMany("Reatings")
+                        .HasForeignKey("RenterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Renter");
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Car", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Ratings");
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Category", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Category", b =>
                 {
                     b.Navigation("Cars");
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Dealer", b =>
                 {
+                    b.Navigation("ApplicationUser")
+                        .IsRequired();
+
                     b.Navigation("Cars");
-
-                    b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Insurance", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("RentACar.Infrastructure.Entitites.Location", b =>
+            modelBuilder.Entity("RentACar.Domain.Entitites.Location", b =>
                 {
                     b.Navigation("DropOffLocations");
 
                     b.Navigation("PickUpLocations");
+                });
+
+            modelBuilder.Entity("RentACar.Domain.Entitites.Renter", b =>
+                {
+                    b.Navigation("ApplicationUser")
+                        .IsRequired();
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reatings");
                 });
 #pragma warning restore 612, 618
         }

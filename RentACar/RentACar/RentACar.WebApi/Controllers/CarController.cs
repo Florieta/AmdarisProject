@@ -22,7 +22,7 @@ namespace RentACar.WebApi.Controllers
         {
             GetAllCars query = new GetAllCars();
             List<Car> result = await base.Mediator.Send(query);
-            List<GetCarDto> mappedResult = base.Mapper.Map<List<GetCarDto>>(result);
+            List<GetCarViewModel> mappedResult = base.Mapper.Map<List<GetCarViewModel>>(result);
             return Ok(mappedResult);
         }
 
@@ -42,23 +42,23 @@ namespace RentACar.WebApi.Controllers
                 return NotFound();
             }
 
-            GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
+            GetCarViewModel getCarDto = base.Mapper.Map<GetCarViewModel>(car);
             return Ok(getCarDto);
         }
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add([FromBody] AddCarDto addCarDto)
+        public async Task<IActionResult> Add([FromBody] AddCarModel addCarDto)
         {
             CreateCar command = base.Mapper.Map<CreateCar>(addCarDto);
             Car car = await base.Mediator.Send(command);
-            GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
+            GetCarViewModel getCarDto = base.Mapper.Map<GetCarViewModel>(car);
             return CreatedAtAction(nameof(GetById), new { carId = car.Id }, getCarDto);
         }
 
         [HttpPost]
         [Route("Edir/{carId}")]
-        public async Task<IActionResult> Edit([FromBody] EditCarDto editCarDto, int carId)
+        public async Task<IActionResult> Edit([FromBody] EditCarViewModel editCarDto, int carId)
         {
             UpdateCar command = base.Mapper.Map<UpdateCar>(editCarDto);
 

@@ -15,17 +15,17 @@ namespace RentACar.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.HasData(CreateUsers());
-           
+            builder.HasOne(r => r.Renter)
+                 .WithOne(a => a.ApplicationUser);
+            builder.HasOne(r => r.Dealer)
+                 .WithOne(a => a.ApplicationUser);
             builder.Property(f => f.FirstName)
                 .IsRequired()
                 .HasMaxLength(20);
             builder.Property(l => l.LastName)
                 .IsRequired()
                 .HasMaxLength(20);
-            builder.Property(a => a.Address)
-                .HasMaxLength(75);
-            builder.Property(a => a.DrivingLicenseNumber)
-                .HasMaxLength(10);
+           
         }
 
         private List<ApplicationUser> CreateUsers()
@@ -43,7 +43,7 @@ namespace RentACar.Infrastructure.Data.Configuration
                 PhoneNumber = "1234567890",
                 FirstName = "Peter",
                 LastName = "Parker",
-                IsDealer = true
+                DealerId = 1
             };
 
             user.PasswordHash =
@@ -61,7 +61,7 @@ namespace RentACar.Infrastructure.Data.Configuration
                 PhoneNumber = "1234567890",
                 FirstName = "Peter",
                 LastName = "Brown",
-                IsDealer= false
+                RenterId = 1
             };
 
             user.PasswordHash =

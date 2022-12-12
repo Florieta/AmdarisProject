@@ -19,7 +19,7 @@ namespace RentACar.WebApi.Controllers
         {
             GetAllCategories query = new GetAllCategories();
             List<Category> result = await base.Mediator.Send(query);
-            List<GetCategoryDto> mappedResult = base.Mapper.Map<List<GetCategoryDto>>(result);
+            List<GetCategoryViewModel> mappedResult = base.Mapper.Map<List<GetCategoryViewModel>>(result);
             return Ok(mappedResult);
         }
 
@@ -39,23 +39,23 @@ namespace RentACar.WebApi.Controllers
                 return NotFound();
             }
 
-            GetCategoryDto getCategoryDto = base.Mapper.Map<GetCategoryDto>(category);
+            GetCategoryViewModel getCategoryDto = base.Mapper.Map<GetCategoryViewModel>(category);
             return Ok(getCategoryDto);
         }
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add([FromBody] AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> Add([FromBody] AddCategoryModel addCategoryDto)
         {
             CreateCategory command = base.Mapper.Map<CreateCategory>(addCategoryDto);
             Category category = await base.Mediator.Send(command);
-            GetCategoryDto getCategoryDto = base.Mapper.Map<GetCategoryDto>(category);
+            GetCategoryViewModel getCategoryDto = base.Mapper.Map<GetCategoryViewModel>(category);
             return CreatedAtAction(nameof(GetById), new { categoryId = category.Id }, getCategoryDto);
         }
 
         [HttpPost]
         [Route("Edir/{categoryId}")]
-        public async Task<IActionResult> Edit([FromBody] EditCategoryDto editCategoryDto, int categoryId)
+        public async Task<IActionResult> Edit([FromBody] EditCategoryVideModel editCategoryDto, int categoryId)
         {
             UpdateCategory command = base.Mapper.Map<UpdateCategory>(editCategoryDto);
 

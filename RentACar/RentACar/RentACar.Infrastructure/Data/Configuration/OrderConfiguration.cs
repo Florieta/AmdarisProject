@@ -21,13 +21,9 @@ namespace RentACar.Infrastructure.Data.Configuration
                 .WithMany(b => b.Orders)
                 .HasForeignKey(c => c.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(c => c.ApplicationUser)
+            builder.HasOne(c => c.Renter)
                 .WithMany(b => b.Orders)
-               .HasForeignKey(c => c.ApplicationUserId)
-               .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(c => c.Insurance)
-                .WithMany(b => b.Orders)
-               .HasForeignKey(c => c.InsuranceCode)
+               .HasForeignKey(c => c.RenterId)
                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(t => t.PickUpLocation)
                  .WithMany(c => c.PickUpLocations)
@@ -64,12 +60,11 @@ namespace RentACar.Infrastructure.Data.Configuration
                      CarId = 3,
                      PickUpLocationId = 1,
                      DropOffLocationId = 1,
-                     InsuranceCode = 1,
                      TotalAmount = 292,
                      IsActive = true,
                      IsPaid = false,
                      IsDeleted = false,
-                     ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
+                     RenterId = 1
                 },
                 new Order()
                 {
@@ -81,12 +76,11 @@ namespace RentACar.Infrastructure.Data.Configuration
                      CarId = 2,
                      PickUpLocationId = 1,
                      DropOffLocationId = 2,
-                     InsuranceCode = 2,
                      TotalAmount = 114,
                      IsActive = true,
                      IsPaid = false,
                      IsDeleted = false,
-                     ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
+                     RenterId = 1
                 }
             };
 

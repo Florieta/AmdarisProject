@@ -38,7 +38,7 @@ namespace RentACar.Application.Cars.Commands.Update
             };
 
             await this.uniteOfWorkRepo.CarRepository.Update(car);
-            await this.uniteOfWorkRepo.Save();
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return car;
         }

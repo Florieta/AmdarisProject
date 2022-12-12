@@ -13,7 +13,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IInsuranceRepository, InsuranceRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
 
             return services;

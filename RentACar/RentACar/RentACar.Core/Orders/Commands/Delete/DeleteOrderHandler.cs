@@ -20,7 +20,7 @@ namespace RentACar.Application.Orders.Commands.Delete
 
         public async Task<Order> Handle(DeleteOrder request, CancellationToken cancellationToken)
         {
-            var order = await this.uniteOfWorkRepo.OrderRepository.GetById(request.Id);
+            var order = await this.uniteOfWorkRepo.OrderRepository.GetByIdAsync(request.Id);
 
             if (!order.IsDeleted)
             {

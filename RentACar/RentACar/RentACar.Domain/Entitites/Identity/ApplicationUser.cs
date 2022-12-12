@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,14 @@ namespace RentACar.Domain.Entitites.Identity
     {
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-        public string? Address { get; set; }
-        public string? DrivingLicenseNumber { get; set; } = null!;
-        public bool IsDealer { get; set; } = false;
+        public int? RenterId { get; set; }
 
-        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
-        public IEnumerable<Order> Orders { get; set; } = new List<Order>();
+        [ForeignKey(nameof(RenterId))]
+        public Renter? Renter { get; set; }
+
+        public int? DealerId { get; set; }
+
+        [ForeignKey(nameof(DealerId))]
+        public Dealer? Dealer { get; set; }
     }
 }

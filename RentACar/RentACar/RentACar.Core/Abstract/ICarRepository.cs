@@ -10,13 +10,13 @@ namespace RentACar.Application.Abstract
 {
     public interface ICarRepository
     {
-        Task<Car> GetById(int carId);
+        Task<Car> GetByIdAsync(int carId);
 
         Task AddAsync(Car car);
 
         void Remove(Car car);
 
-        Task<List<Car>> GetAll();
+        Task<List<Car>> GetAllAsync();
 
         Task Update(Car car);
 

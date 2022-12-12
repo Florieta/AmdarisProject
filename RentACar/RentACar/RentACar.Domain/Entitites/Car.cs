@@ -58,10 +58,12 @@ namespace RentACar.Domain.Entitites
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
 
-        public string ApplicationUserId { get; set; } = null!;
+        public int DealerId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+        public Dealer Dealer { get; set; } = null!;
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }

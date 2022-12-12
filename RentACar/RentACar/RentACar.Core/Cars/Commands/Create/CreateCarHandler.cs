@@ -34,11 +34,12 @@ namespace RentACar.Application.Cars.Commands.Create
                 Fuel = request.Fuel,
                 Transmission = request.Transmission,
                 CategoryId = request.CategoryId,
-                DailyRate =  request.DailyRate
+                DailyRate = request.DailyRate,
+                DealerId = request.DealerId
             };
 
             await this.unitOfWorkRepo.CarRepository.AddAsync(car);
-            await this.unitOfWorkRepo.Save();
+            await this.unitOfWorkRepo.SaveAsync();
 
             return car;
         }

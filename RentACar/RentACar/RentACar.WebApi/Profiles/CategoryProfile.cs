@@ -10,9 +10,9 @@ namespace RentACar.WebApi.Profiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category, GetCategoryDto>();
-            CreateMap<AddCategoryDto, CreateCategory>();
-            CreateMap<EditCategoryDto, UpdateCategory>();
+            CreateMap<Category, GetCategoryViewModel>();
+            CreateMap<AddCategoryModel, CreateCategory>();
+            CreateMap<EditCategoryVideModel, UpdateCategory>();
         }
     }
 }

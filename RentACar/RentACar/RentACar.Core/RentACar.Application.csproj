@@ -16,8 +16,4 @@
     <ProjectReference Include="..\RentACar.Domain\RentACar.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Categories\Commands\Delete\" />
-  </ItemGroup>
-
 </Project>

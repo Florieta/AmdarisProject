@@ -2,6 +2,7 @@
 using RentACar.Domain.Entitites.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,12 +41,10 @@ namespace RentACar.Domain.Entitites
 
         public Location DropOffLocation { get; set; } = null!;
 
-        public int InsuranceCode { get; set; }
+        public string? Insurance { get; set; }
 
-        public Insurance? Insurance { get; set; }
-
-        public string ApplicationUserId { get; set; } = null!;
-
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+        public int RenterId { get; set; }
+        [ForeignKey(nameof(RenterId))]
+        public Renter Renter { get; set; } = null!;
     }
 }

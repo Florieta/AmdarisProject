@@ -20,7 +20,7 @@ namespace RentACar.Application.Orders.Queries
 
         public async Task<Order> Handle(GetOrderById request, CancellationToken cancellationToken)
         {
-            return await this.unitOfWorkRepo.OrderRepository.GetById(request.Id);
+            return await this.unitOfWorkRepo.OrderRepository.GetByIdAsync(request.Id);
         }
     }
 }

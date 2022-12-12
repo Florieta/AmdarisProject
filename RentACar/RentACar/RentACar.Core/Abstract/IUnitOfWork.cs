@@ -13,12 +13,8 @@ namespace RentACar.Application.Abstract
 
         public IOrderRepository OrderRepository { get; }
 
-        public IInsuranceRepository InsuranceRepository { get; }
-
         public ILocationRepository LocationRepository { get; }
 
-
-
-        Task Save();
+        Task SaveAsync();
     }
 }

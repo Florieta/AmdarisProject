@@ -20,9 +20,9 @@ namespace RentACar.Infrastructure.Data.Configuration
             builder.HasOne(c => c.Category)
                 .WithMany(b => b.Cars)
                 .HasForeignKey(c => c.CategoryId);
-            builder.HasOne(d => d.ApplicationUser)
+            builder.HasOne(d => d.Dealer)
                 .WithMany(b => b.Cars)
-                .HasForeignKey(c => c.ApplicationUserId);
+                .HasForeignKey(c => c.DealerId);
             builder.Property(r => r.RegNumber)
                    .IsRequired()
                    .HasMaxLength(8);
@@ -66,7 +66,7 @@ namespace RentACar.Infrastructure.Data.Configuration
                       IsAvailable = true,
                       IsDeleted = false,
                       CategoryId = 3,
-                      ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
+                      DealerId = 1
                  },
 
                 new Car()
@@ -87,7 +87,7 @@ namespace RentACar.Infrastructure.Data.Configuration
                     IsAvailable = true,
                     IsDeleted = false,
                     CategoryId = 1,
-                    ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
+                    DealerId = 1
                 },
 
                 new Car()
@@ -108,7 +108,7 @@ namespace RentACar.Infrastructure.Data.Configuration
                     IsAvailable = true,
                     IsDeleted= false,
                     CategoryId = 2,
-                    ApplicationUserId = "d3211a8d-efde-4a19-8087-79cde4679276"
+                    DealerId = 1
                 }
             };
 

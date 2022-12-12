@@ -24,29 +24,32 @@ namespace RentACar.Infrastructure.Repository
             await _context.Cars.AddAsync(car);
         }
 
-        public async Task<List<Car>> GetAll()
+        public async Task<List<Car>> GetAllAsync()
         {
             return await _context.Cars
-                .Where(c => c.IsDeleted == false)
+                .Where(c => c.IsDeleted == false && c.IsAvailable == true)
                 .ToListAsync();
         }
 
-        public async Task<Car> GetById(int carId)
+        public async Task<Car> GetByIdAsync(int carId)
         {
             var car = await _context.Cars
-                .SingleOrDefaultAsync(p => p.Id == carId);
+                .FirstOrDefaultAsync(p => p.Id == carId);
 
             return car;
         }
 
         public void Remove(Car car)
         {
-            _context.Cars.Remove(car);
+            if (!car.IsDeleted)
+            {
+                car.IsDeleted = true;
+            }
         }
 
         public async Task Update(Car car)
         {
-            _context.Update(car);
+           _context.Update(car);
         }
     }
 }

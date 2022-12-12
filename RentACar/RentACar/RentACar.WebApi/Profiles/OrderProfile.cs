@@ -10,9 +10,9 @@ namespace RentACar.WebApi.Profiles
     {
         public OrderProfile()
         {
-            CreateMap<Order, GetOrderDto>();
-            CreateMap<AddOrderDto, CreateOrder>();
-            CreateMap<EditOrderDto, UpdateOrder>();
+            CreateMap<Order, GetOrderViewModel>();
+            CreateMap<AddOrderModel, CreateOrder>();
+            CreateMap<EditOrderViewModel, UpdateOrder>();
         }
     }
 }

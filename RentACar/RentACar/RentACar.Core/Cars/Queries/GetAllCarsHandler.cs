@@ -20,7 +20,7 @@ namespace RentACar.Application.Cars.Queries
 
         public async Task<List<Car>> Handle(GetAllCars request, CancellationToken cancellationToken)
         {
-            return await this.unitOfWorkRepo.CarRepository.GetAll();
+            return await this.unitOfWorkRepo.CarRepository.GetAllAsync();
         }
     }
 }

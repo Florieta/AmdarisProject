@@ -25,8 +25,8 @@ namespace RentACar.Application.Categories.Commands.Create
                 CategoryName = request.CategoryName
             };
 
-            await this.unitOfWorkRepo.CategoryRepository.Add(category);
-            await this.unitOfWorkRepo.Save();
+            await this.unitOfWorkRepo.CategoryRepository.AddAsync(category);
+            await this.unitOfWorkRepo.SaveAsync();
 
             return category;
         }

@@ -19,28 +19,31 @@ namespace RentACar.Infrastructure.Repository
             _context = context;
         }
 
-        public async Task Add(Order order)
+        public async Task AddAsync(Order order)
         {
             await _context.Orders.AddAsync(order);
         }
 
-        public async Task<List<Order>> GetAll()
+        public async Task<List<Order>> GetAllAsync()
         {
-            return await _context.Orders.Where(b => b.IsActive == true)
+            return await _context.Orders.Where(b => b.IsActive == true && b.IsDeleted == false)
                 .ToListAsync();
         }
 
-        public async Task<Order> GetById(int orderId)
+        public async Task<Order> GetByIdAsync(int orderId)
         {
             var order = await _context.Orders
-                .SingleOrDefaultAsync(p => p.Id == orderId);
+                .FirstOrDefaultAsync(p => p.Id == orderId);
 
             return order;
         }
 
         public void Remove(Order order)
         {
-            _context.Orders.Remove(order);
+            if (!order.IsDeleted)
+            {
+                order.IsDeleted = true;
+            }
         }
 
         public async Task Update(Order order)

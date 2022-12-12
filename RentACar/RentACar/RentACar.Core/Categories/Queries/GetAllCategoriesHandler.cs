@@ -20,7 +20,7 @@ namespace RentACar.Application.Categories.Queries
 
         public async Task<List<Category>> Handle(GetAllCategories request, CancellationToken cancellationToken)
         {
-            return await this.unitOfWorkRepo.CategoryRepository.GetAll();
+            return await this.unitOfWorkRepo.CategoryRepository.GetAllAsync();
         }
     }
 }

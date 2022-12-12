@@ -20,7 +20,7 @@ namespace RentACar.Application.Locations.Queries
 
         public async Task<List<Location>> Handle(GetAllLocations request, CancellationToken cancellationToken)
         {
-            return await this.unitOfWorkRepo.LocationRepository.GetAll();
+            return await this.unitOfWorkRepo.LocationRepository.GetAllAsync();
         }
     }
 }

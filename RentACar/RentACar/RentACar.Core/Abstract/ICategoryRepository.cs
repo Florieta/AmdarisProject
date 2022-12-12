@@ -9,13 +9,13 @@ namespace RentACar.Application.Abstract
 {
     public interface ICategoryRepository
     {
-        Task<Category> GetById(int categoryId);
+        Task<Category> GetByIdAsync(int categoryId);
 
-        Task Add(Category category);
+        Task AddAsync(Category category);
 
         void Remove(Category category);
 
-        Task<List<Category>> GetAll();
+        Task<List<Category>> GetAllAsync();
 
         Task Update(Category category);
     }

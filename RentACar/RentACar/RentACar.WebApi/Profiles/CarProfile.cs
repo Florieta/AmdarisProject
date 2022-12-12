@@ -10,10 +10,9 @@ namespace RentACar.WebApi.Profiles
     {
         public CarProfile()
         {
-            CreateMap<Car, GetCarDto>();
-            CreateMap<AddCarDto, CreateCar>();
-            CreateMap<EditCarDto, UpdateCar>();
+            CreateMap<Car, GetCarViewModel>();
+            CreateMap<AddCarModel, CreateCar>();
+            CreateMap<EditCarViewModel, UpdateCar>();
         }
-        
     }
 }

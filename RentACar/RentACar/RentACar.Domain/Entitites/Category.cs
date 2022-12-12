@@ -17,6 +17,8 @@ namespace RentACar.Domain.Entitites
         [StringLength(50)]
         public string CategoryName { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         public IEnumerable<Car> Cars { get; set; } = new List<Car>();
     }
 }

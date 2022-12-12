@@ -9,13 +9,13 @@ namespace RentACar.Application.Abstract
 {
     public interface IOrderRepository
     {
-        Task<Order> GetById(int id);
+        Task<Order> GetByIdAsync(int id);
 
-        Task Add(Order order);
+        Task AddAsync(Order order);
 
         void Remove(Order order);
 
-        Task<List<Order>> GetAll();
+        Task<List<Order>> GetAllAsync();
 
         Task Update(Order order);
     }

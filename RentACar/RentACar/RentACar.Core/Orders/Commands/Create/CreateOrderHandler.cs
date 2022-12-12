@@ -31,11 +31,12 @@ namespace RentACar.Application.Orders.Commands.Create
                 CarId = request.CarId,
                 PickUpLocationId = request.PickUpLocationId,
                 DropOffLocationId = request.DropOffLocationId,
-                InsuranceCode = request.InsuranceCode
+                Insurance = request.Insurance,
+                RenterId = request.RenterId
             };
 
-            await this.unitOfWorkRepo.OrderRepository.Add(order);
-            await this.unitOfWorkRepo.Save();
+            await this.unitOfWorkRepo.OrderRepository.AddAsync(order);
+            await this.unitOfWorkRepo.SaveAsync();
 
             return order;
         }

@@ -29,7 +29,9 @@ namespace RentACar.Application.Orders.Commands.Create
 
         public int DropOffLocationId { get; set; }
 
-        public int InsuranceCode { get; set; }
+        public string? Insurance { get; set; }
+
+        public int RenterId { get; set; }
 
     }
 }

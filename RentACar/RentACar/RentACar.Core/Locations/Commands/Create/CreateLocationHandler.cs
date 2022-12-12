@@ -26,8 +26,8 @@ namespace RentACar.Application.Locations.Commands.Create
                 Address = request.Address
             };
 
-            await this.unitOfWorkRepo.LocationRepository.Add(location);
-            await this.unitOfWorkRepo.Save();
+            await this.unitOfWorkRepo.LocationRepository.AddAsync(location);
+            await this.unitOfWorkRepo.SaveAsync();
 
             return location;
         }

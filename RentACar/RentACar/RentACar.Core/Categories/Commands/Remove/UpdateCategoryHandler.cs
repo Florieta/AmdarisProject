@@ -27,7 +27,7 @@ namespace RentACar.Application.Categories.Commands.Update
             };
 
             await this.uniteOfWorkRepo.CategoryRepository.Update(category);
-            await this.uniteOfWorkRepo.Save();
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return category;
         }

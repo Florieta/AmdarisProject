@@ -20,7 +20,7 @@ namespace RentACar.Application.Cars.Commands.Delete
 
         public async Task<Car> Handle(DeleteCar request, CancellationToken cancellationToken)
         {
-            var car = await this.uniteOfWorkRepo.CarRepository.GetById(request.Id);
+            var car = await this.uniteOfWorkRepo.CarRepository.GetByIdAsync(request.Id);
 
             if (!car.IsDeleted)
             {

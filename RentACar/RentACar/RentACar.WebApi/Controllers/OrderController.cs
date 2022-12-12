@@ -19,7 +19,7 @@ namespace RentACar.WebApi.Controllers
         {
             GetAllOrders query = new GetAllOrders();
             List<Order> result = await base.Mediator.Send(query);
-            List<GetOrderDto> mappedResult = base.Mapper.Map<List<GetOrderDto>>(result);
+            List<GetOrderViewModel> mappedResult = base.Mapper.Map<List<GetOrderViewModel>>(result);
             return Ok(mappedResult);
         }
 
@@ -39,24 +39,24 @@ namespace RentACar.WebApi.Controllers
                 return NotFound();
             }
 
-            GetOrderDto getOrderDto = base.Mapper.Map<GetOrderDto>(order);
+            GetOrderViewModel getOrderDto = base.Mapper.Map<GetOrderViewModel>(order);
             return Ok(getOrderDto);
         }
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add([FromBody] AddOrderDto addOrderDto)
+        public async Task<IActionResult> Add([FromBody] AddOrderModel addOrderDto)
         {
 
             CreateOrder command = base.Mapper.Map<CreateOrder>(addOrderDto);
             Order order = await base.Mediator.Send(command);
-            GetOrderDto getOrderDto = base.Mapper.Map<GetOrderDto>(order);
+            GetOrderViewModel getOrderDto = base.Mapper.Map<GetOrderViewModel>(order);
             return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
         }
 
         [HttpPost]
         [Route("Edir/{orderId}")]
-        public async Task<IActionResult> Edit([FromBody] EditOrderDto editOrderDto, int orderId)
+        public async Task<IActionResult> Edit([FromBody] EditOrderViewModel editOrderDto, int orderId)
         {
             UpdateOrder command = base.Mapper.Map<UpdateOrder>(editOrderDto);
 
