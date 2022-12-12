@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Infrastructure.Repository
 {
-    internal class LocationRepository : ILocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private readonly ApplicationDbContext _context;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Orders.Commands.Create;
+using RentACar.Application.Orders.Commands.Delete;
 using RentACar.Application.Orders.Commands.Update;
 using RentACar.Application.Orders.Queries;
 using RentACar.Domain.Entitites;
@@ -17,7 +18,7 @@ namespace RentACar.WebApi.Controllers
         public async Task<IActionResult> All()
         {
             GetAllOrders query = new GetAllOrders();
-            List<Order> result = await base.Madiator.Send(query);
+            List<Order> result = await base.Mediator.Send(query);
             List<GetOrderDto> mappedResult = base.Mapper.Map<List<GetOrderDto>>(result);
             return Ok(mappedResult);
         }
@@ -31,7 +32,7 @@ namespace RentACar.WebApi.Controllers
                 Id = orderId
             };
 
-            Order order = await base.Madiator.Send(query);
+            Order order = await base.Mediator.Send(query);
 
             if (order == null)
             {
@@ -48,7 +49,7 @@ namespace RentACar.WebApi.Controllers
         {
 
             CreateOrder command = base.Mapper.Map<CreateOrder>(addOrderDto);
-            Order order = await base.Madiator.Send(command);
+            Order order = await base.Mediator.Send(command);
             GetOrderDto getOrderDto = base.Mapper.Map<GetOrderDto>(order);
             return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
         }
@@ -61,7 +62,7 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = orderId;
 
-            Order order = await base.Madiator.Send(command);
+            Order order = await base.Mediator.Send(command);
 
             if (order == null)
             {
@@ -69,6 +70,25 @@ namespace RentACar.WebApi.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("Delete/{orderId}")]
+        [ActionName(nameof(Delete))]
+        public async Task<IActionResult> Delete(int orderId)
+        {
+            DeleteOrder command = new() { Id = orderId };
+
+            try
+            {
+                Order order = await base.Mediator.Send(command);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

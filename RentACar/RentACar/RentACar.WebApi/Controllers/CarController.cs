@@ -7,6 +7,7 @@ using RentACar.Domain.Entitites;
 using RentACar.WebApi.ViewModels.Car;
 using RentACar.Application.Cars.Commands.Create;
 using RentACar.Application.Cars.Commands.Update;
+using RentACar.Application.Cars.Commands.Delete;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace RentACar.WebApi.Controllers
         public async Task<IActionResult> All()
         {
             GetAllCars query = new GetAllCars();
-            List<Car> result = await base.Madiator.Send(query);
+            List<Car> result = await base.Mediator.Send(query);
             List<GetCarDto> mappedResult = base.Mapper.Map<List<GetCarDto>>(result);
             return Ok(mappedResult);
         }
@@ -34,7 +35,7 @@ namespace RentACar.WebApi.Controllers
                 Id = carId
             };
 
-            Car car = await base.Madiator.Send(query);
+            Car car = await base.Mediator.Send(query);
 
             if (car == null)
             {
@@ -50,7 +51,7 @@ namespace RentACar.WebApi.Controllers
         public async Task<IActionResult> Add([FromBody] AddCarDto addCarDto)
         {
             CreateCar command = base.Mapper.Map<CreateCar>(addCarDto);
-            Car car = await base.Madiator.Send(command);
+            Car car = await base.Mediator.Send(command);
             GetCarDto getCarDto = base.Mapper.Map<GetCarDto>(car);
             return CreatedAtAction(nameof(GetById), new { carId = car.Id }, getCarDto);
         }
@@ -63,7 +64,7 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = carId;
 
-            Car car = await base.Madiator.Send(command);
+            Car car = await base.Mediator.Send(command);
 
             if (car == null)
             {
@@ -71,6 +72,32 @@ namespace RentACar.WebApi.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("Delete/carId")]
+        public async Task<IActionResult> Delete(int carId)
+        {
+            DeleteCar command = new DeleteCar()
+            {
+                Id = carId
+            };
+
+            try
+            {
+                Car car = await base.Mediator.Send(command);
+
+                if (car == null)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

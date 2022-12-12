@@ -11,13 +11,13 @@ namespace RentACar.Application.Abstract
         public ICarRepository CarRepository { get; }
         public ICategoryRepository CategoryRepository { get; }
 
-        //public IApplicationUserRepository ApplicationUserRepository { get; }
-
-        //public IInsuranceRepository InsuranceRepository { get; }
-
-        //public ILocationRepository LocationRepository { get; }
-
         public IOrderRepository OrderRepository { get; }
+
+        public IInsuranceRepository InsuranceRepository { get; }
+
+        public ILocationRepository LocationRepository { get; }
+
+
 
         Task Save();
     }

@@ -18,7 +18,7 @@ namespace RentACar.WebApi.Controllers
         public async Task<IActionResult> All()
         {
             GetAllCategories query = new GetAllCategories();
-            List<Category> result = await base.Madiator.Send(query);
+            List<Category> result = await base.Mediator.Send(query);
             List<GetCategoryDto> mappedResult = base.Mapper.Map<List<GetCategoryDto>>(result);
             return Ok(mappedResult);
         }
@@ -32,7 +32,7 @@ namespace RentACar.WebApi.Controllers
                 Id = categoryId
             };
 
-            Category category = await base.Madiator.Send(query);
+            Category category = await base.Mediator.Send(query);
 
             if (category == null)
             {
@@ -48,7 +48,7 @@ namespace RentACar.WebApi.Controllers
         public async Task<IActionResult> Add([FromBody] AddCategoryDto addCategoryDto)
         {
             CreateCategory command = base.Mapper.Map<CreateCategory>(addCategoryDto);
-            Category category = await base.Madiator.Send(command);
+            Category category = await base.Mediator.Send(command);
             GetCategoryDto getCategoryDto = base.Mapper.Map<GetCategoryDto>(category);
             return CreatedAtAction(nameof(GetById), new { categoryId = category.Id }, getCategoryDto);
         }
@@ -61,7 +61,7 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = categoryId;
 
-            Category category = await base.Madiator.Send(command);
+            Category category = await base.Mediator.Send(command);
 
             if (category == null)
             {
