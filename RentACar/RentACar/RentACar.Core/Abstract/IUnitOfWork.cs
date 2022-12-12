@@ -14,6 +14,9 @@ namespace RentACar.Application.Abstract
         public IOrderRepository OrderRepository { get; }
 
         public ILocationRepository LocationRepository { get; }
+        public IRatingRepository RatingRepository { get; }
+        public IDealerRepository DealerRepository { get; }
+        public IRenterRepository RenterRepository { get; }
 
         Task SaveAsync();
     }

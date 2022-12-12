@@ -14,6 +14,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IDealerRepository, DealerRepository>();
+            services.AddScoped<IRenterRepository, RenterRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
 
             return services;
         }
