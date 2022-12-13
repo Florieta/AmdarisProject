@@ -12,7 +12,7 @@ namespace RentACar.WebApi.Profiles
         {
             CreateMap<Category, GetCategoryViewModel>();
             CreateMap<AddCategoryModel, CreateCategory>();
-            CreateMap<EditCategoryVideModel, UpdateCategory>();
+            CreateMap<EditCategoryVideModel, UpdateLocation>();
         }
     }
 }

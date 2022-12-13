@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Categories.Commands.Create;
+using RentACar.Application.Categories.Commands.Delete;
 using RentACar.Application.Categories.Commands.Update;
 using RentACar.Application.Categories.Queries;
 using RentACar.Application.Orders.Queries;
@@ -57,7 +58,7 @@ namespace RentACar.WebApi.Controllers
         [Route("Edir/{categoryId}")]
         public async Task<IActionResult> Edit([FromBody] EditCategoryVideModel editCategoryDto, int categoryId)
         {
-            UpdateCategory command = base.Mapper.Map<UpdateCategory>(editCategoryDto);
+            UpdateLocation command = base.Mapper.Map<UpdateLocation>(editCategoryDto);
 
             command.Id = categoryId;
 
@@ -69,6 +70,32 @@ namespace RentACar.WebApi.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("Delete/categoryId")]
+        public async Task<IActionResult> Delete(int categoryId)
+        {
+            DeleteLocation command = new DeleteLocation()
+            {
+                Id = categoryId
+            };
+
+            try
+            {
+                Category category = await base.Mediator.Send(command);
+
+                if (category == null)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Categories.Commands.Delete
 {
-    public class DeleteCategory : IRequest<Category>
+    public class DeleteLocation : IRequest<Category>
     {
         public int Id { get; set; }
     }

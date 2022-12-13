@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.Locations.Commands.Delete;
+using RentACar.Application.Locations.Commands.Update;
 using RentACar.Application.Locations.Commands.Create;
 using RentACar.Application.Locations.Queries;
 using RentACar.Domain.Entitites;
@@ -49,6 +51,50 @@ namespace RentACar.WebApi.Controllers
             Location location = await base.Mediator.Send(command);
             GetLocationViewModel getLocationModel = base.Mapper.Map<GetLocationViewModel>(location);
             return CreatedAtAction(nameof(GetById), new { locationId = location.Id }, getLocationModel);
+        }
+
+        [HttpPost]
+        [Route("Edir/{locationId}")]
+        public async Task<IActionResult> Edit([FromBody] EditLocationVideModel editLocationModel, int locationId)
+        {
+            UpdateLocation command = base.Mapper.Map<UpdateLocation>(editLocationModel);
+
+            command.Id = locationId;
+
+            Location location = await base.Mediator.Send(command);
+
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("Delete/locationId")]
+        public async Task<IActionResult> Delete(int locationId)
+        {
+            DeleteLocation command = new DeleteLocation()
+            {
+                Id = locationId
+            };
+
+            try
+            {
+                Location location = await base.Mediator.Send(command);
+
+                if (location == null)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

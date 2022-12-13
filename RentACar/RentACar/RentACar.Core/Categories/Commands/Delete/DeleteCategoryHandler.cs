@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Categories.Commands.Delete
 {
-    public class DeleteCategoryHandler : IRequestHandler<DeleteCategory, Category>
+    public class DeleteLocationHandler : IRequestHandler<DeleteLocation, Category>
     {
         private readonly IUnitOfWork uniteOfWorkRepo;
 
-        public DeleteCategoryHandler(IUnitOfWork uniteOfWorkRepo)
+        public DeleteLocationHandler(IUnitOfWork uniteOfWorkRepo)
         {
             this.uniteOfWorkRepo = uniteOfWorkRepo;
         }
 
-        public async Task<Category> Handle(DeleteCategory request, CancellationToken cancellationToken)
+        public async Task<Category> Handle(DeleteLocation request, CancellationToken cancellationToken)
         {
             var category = await this.uniteOfWorkRepo.CategoryRepository.GetByIdAsync(request.Id);
 
