@@ -32,5 +32,6 @@ namespace RentACar.Application.Orders.Commands.Update
         public int DropOffLocationId { get; set; }
 
         public string? Insurance { get; set; }
+        public int RenterId { get; set; }
     }
 }

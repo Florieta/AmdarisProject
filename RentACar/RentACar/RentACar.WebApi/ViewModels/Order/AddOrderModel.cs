@@ -24,5 +24,6 @@ namespace RentACar.WebApi.ViewModels.Order
 
         public string? Insurance { get; set; }
 
+        public int RenterId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ namespace RentACar.WebApi.ViewModels.Order
 {
     public class EditOrderViewModel
     {
+        public int Id { get; set; }
         public DateTime PickUpDateAndTime { get; set; }
 
         public DateTime DropOffDateAndTime { get; set; }
@@ -13,8 +14,6 @@ namespace RentACar.WebApi.ViewModels.Order
         public decimal TotalAmount { get; set; }
 
         public PaymentType PaymentType { get; set; }
-
-        public bool IsActive { get; set; } = true;
 
         public bool IsPaid { get; set; } = false;
 
@@ -26,5 +25,6 @@ namespace RentACar.WebApi.ViewModels.Order
 
         public string? Insurance { get; set; }
 
+        public int RenterId { get; set; }
     }
 }

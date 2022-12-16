@@ -43,13 +43,13 @@ namespace RentACar.WebApi.Controllers
 
         [HttpGet("{Id}")]
 
-        public async Task<IActionResult> GetById(int orderId)
+        public async Task<IActionResult> GetById(int Id)
         {
             _logger.LogInformation("Retrieving the booking by Id"); 
 
             GetOrderById query = new GetOrderById()
             {
-                Id = orderId
+                Id = Id
             };
 
             Order order = await _mediator.Send(query);
@@ -75,16 +75,16 @@ namespace RentACar.WebApi.Controllers
 
             _logger.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
 
-            return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
+            return CreatedAtAction(nameof(GetById), new { Id = order.Id }, getOrderDto);
         }
 
         [HttpPut("{Id}")]
 
-        public async Task<IActionResult> Edit([FromBody] EditOrderViewModel editOrderDto, int orderId)
+        public async Task<IActionResult> Edit([FromBody] EditOrderViewModel editOrderDto, int Id)
         {
             UpdateOrder command = _mapper.Map<UpdateOrder>(editOrderDto);
 
-            command.Id = orderId;
+            command.Id = Id;
 
             _logger.LogInformation("Request with the updated booking was sent!");
 
@@ -102,9 +102,9 @@ namespace RentACar.WebApi.Controllers
 
         [HttpDelete("{Id}")]
 
-        public async Task<IActionResult> Delete(int orderId)
+        public async Task<IActionResult> Delete(int Id)
         {
-            DeleteOrder command = new() { Id = orderId };
+            DeleteOrder command = new() { Id = Id };
 
             try
             {
