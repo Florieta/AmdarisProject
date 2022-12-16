@@ -9,7 +9,7 @@ namespace RentACar.WebApi.ViewModels.Car
         [StringLength(8, MinimumLength = 5)]
         public string RegNumber { get; set; } = null!;
         [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 2)]
         public string Model { get; set; } = null!;
         [Required]
         [StringLength(20, MinimumLength = 2)]

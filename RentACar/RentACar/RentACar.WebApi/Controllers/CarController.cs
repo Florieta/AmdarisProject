@@ -8,63 +8,74 @@ using RentACar.WebApi.ViewModels.Car;
 using RentACar.Application.Cars.Commands.Create;
 using RentACar.Application.Cars.Commands.Update;
 using RentACar.Application.Cars.Commands.Delete;
+using RentACar.Application.Cars.Commands.Add;
+using AutoMapper;
+using MediatR;
 
 namespace RentACar.WebApi.Controllers
 {
     [Route("api/Car")]
     [ApiController]
 
-    public class CarController : BaseController<CarController>
+    public class CarController : ControllerBase
     {
-        [HttpGet]
-        [Route("All")]
-        public async Task<IActionResult> All()
+
+        public readonly IMapper _mapper;
+        public readonly IMediator _mediator;
+
+
+        public CarController(IMapper mapper, IMediator mediator)
         {
-            GetAllCars query = new GetAllCars();
-            List<Car> result = await base.Mediator.Send(query);
-            List<GetCarViewModel> mappedResult = base.Mapper.Map<List<GetCarViewModel>>(result);
-            return Ok(mappedResult);
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        [Route("GetById/{carId}")]
-        public async Task<IActionResult> GetById(int carId)
+        public async Task<IActionResult> All()
+        {
+            GetAllCars query = new GetAllCars();
+            List<Car> result = await _mediator.Send(query);
+            List<GetCarViewModel> mappedResult = _mapper.Map<List<GetCarViewModel>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
             GetCarById query = new GetCarById()
             {
-                Id = carId
+                Id = id
             };
 
-            Car car = await base.Mediator.Send(query);
+            Car car = await _mediator.Send(query);
 
             if (car == null)
             {
                 return NotFound();
             }
 
-            GetCarViewModel getCarDto = base.Mapper.Map<GetCarViewModel>(car);
+            GetCarViewModel getCarDto = _mapper.Map<GetCarViewModel>(car);
             return Ok(getCarDto);
         }
 
         [HttpPost]
-        [Route("Add")]
         public async Task<IActionResult> Add([FromBody] AddCarModel addCarDto)
         {
-            CreateCar command = base.Mapper.Map<CreateCar>(addCarDto);
-            Car car = await base.Mediator.Send(command);
-            GetCarViewModel getCarDto = base.Mapper.Map<GetCarViewModel>(car);
-            return CreatedAtAction(nameof(GetById), new { carId = car.Id }, getCarDto);
+            CreateCar command = _mapper.Map<CreateCar>(addCarDto);
+            Car car = await _mediator.Send(command);
+            GetCarViewModel getCarDto = _mapper.Map<GetCarViewModel>(car);
+            return CreatedAtAction(nameof(GetById), new { Id = car.Id }, getCarDto);
         }
 
-        [HttpPost]
-        [Route("Edir/{carId}")]
-        public async Task<IActionResult> Edit([FromBody] EditCarViewModel editCarDto, int carId)
+        [HttpPut("{Id}")]
+
+        public async Task<IActionResult> Edit([FromBody] EditCarViewModel editCarDto, int Id)
         {
-            UpdateCar command = base.Mapper.Map<UpdateCar>(editCarDto);
+            UpdateCar command = _mapper.Map<UpdateCar>(editCarDto);
 
-            command.Id = carId;
+            command.Id = Id;
 
-            Car car = await base.Mediator.Send(command);
+            Car car = await _mediator.Send(command);
 
             if (car == null)
             {
@@ -74,18 +85,17 @@ namespace RentACar.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("Delete/carId")]
-        public async Task<IActionResult> Delete(int carId)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int Id)
         {
             DeleteCar command = new DeleteCar()
             {
-                Id = carId
+                Id = Id
             };
 
             try
             {
-                Car car = await base.Mediator.Send(command);
+                Car car = await _mediator.Send(command);
 
                 if (car == null)
                 {
@@ -99,5 +109,24 @@ namespace RentACar.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("{Id}/categories/{categoryId}")]
+        public async Task<IActionResult> AddCategoryToCar(int Id, int categoryId)
+        {
+            var command = new AddCategoryToCar
+            {
+                CategoryId = categoryId,
+                CarId = Id
+            };
+
+            var car = await _mediator.Send(command);
+
+            if (car == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<GetCarViewModel>(car));
+        }
+
+        
     }
 }

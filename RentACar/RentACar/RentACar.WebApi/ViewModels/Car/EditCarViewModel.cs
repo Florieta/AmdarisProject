@@ -5,6 +5,7 @@ namespace RentACar.WebApi.ViewModels.Car
 {
     public class EditCarViewModel
     {
+        public int Id { get; set; }
         [Required]
         [StringLength(8, MinimumLength = 5)]
         public string RegNumber { get; set; } = null!;
@@ -36,7 +37,7 @@ namespace RentACar.WebApi.ViewModels.Car
 
         public int CategoryId { get; set; }
 
-        public string DealerId { get; set; } = null!;
+        public int DealerId { get; set; } 
 
     }
 }

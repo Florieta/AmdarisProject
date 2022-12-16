@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Categories.Commands.Create;
 using RentACar.Application.Categories.Commands.Delete;
@@ -12,57 +14,64 @@ namespace RentACar.WebApi.Controllers
 {
     [Route("api/Category")]
     [ApiController]
-    public class CategoryController : BaseController<CategoryController>
+    public class CategoryController : ControllerBase
     {
-        [HttpGet]
-        [Route("All")]
-        public async Task<IActionResult> All()
+        public readonly IMapper _mapper;
+        public readonly IMediator _mediator;
+
+        public CategoryController(IMapper mapper, IMediator mediator)
         {
-            GetAllCategories query = new GetAllCategories();
-            List<Category> result = await base.Mediator.Send(query);
-            List<GetCategoryViewModel> mappedResult = base.Mapper.Map<List<GetCategoryViewModel>>(result);
-            return Ok(mappedResult);
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        [Route("GetById/{categoryId}")]
-        public async Task<IActionResult> GetById(int categoryId)
+        public async Task<IActionResult> All()
+        {
+            GetAllCategories query = new GetAllCategories();
+            List<Category> result = await _mediator.Send(query);
+            List<GetCategoryViewModel> mappedResult = _mapper.Map<List<GetCategoryViewModel>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id)
         {
             GetCategoryById query = new GetCategoryById()
             {
-                Id = categoryId
+                Id = Id
             };
 
-            Category category = await base.Mediator.Send(query);
+            Category category = await _mediator.Send(query);
 
             if (category == null)
             {
                 return NotFound();
             }
 
-            GetCategoryViewModel getCategoryDto = base.Mapper.Map<GetCategoryViewModel>(category);
+            GetCategoryViewModel getCategoryDto = _mapper.Map<GetCategoryViewModel>(category);
             return Ok(getCategoryDto);
         }
 
         [HttpPost]
-        [Route("Add")]
+
         public async Task<IActionResult> Add([FromBody] AddCategoryModel addCategoryDto)
         {
-            CreateCategory command = base.Mapper.Map<CreateCategory>(addCategoryDto);
-            Category category = await base.Mediator.Send(command);
-            GetCategoryViewModel getCategoryDto = base.Mapper.Map<GetCategoryViewModel>(category);
-            return CreatedAtAction(nameof(GetById), new { categoryId = category.Id }, getCategoryDto);
+            CreateCategory command = _mapper.Map<CreateCategory>(addCategoryDto);
+            Category category = await _mediator.Send(command);
+            GetCategoryViewModel getCategoryDto = _mapper.Map<GetCategoryViewModel>(category);
+            return CreatedAtAction(nameof(GetById), new { Id = category.Id }, getCategoryDto);
         }
 
-        [HttpPost]
-        [Route("Edir/{categoryId}")]
-        public async Task<IActionResult> Edit([FromBody] EditCategoryVideModel editCategoryDto, int categoryId)
+        [HttpPut("{Id}")]
+
+        public async Task<IActionResult> Edit([FromBody] EditCategoryViewModel editCategoryDto, int Id)
         {
-            UpdateLocation command = base.Mapper.Map<UpdateLocation>(editCategoryDto);
+            UpdateLocation command = _mapper.Map<UpdateLocation>(editCategoryDto);
 
-            command.Id = categoryId;
+            command.Id = Id;
 
-            Category category = await base.Mediator.Send(command);
+            Category category = await _mediator.Send(command);
 
             if (category == null)
             {
@@ -72,18 +81,17 @@ namespace RentACar.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("Delete/categoryId")]
-        public async Task<IActionResult> Delete(int categoryId)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int Id)
         {
             DeleteLocation command = new DeleteLocation()
             {
-                Id = categoryId
+                Id = Id
             };
 
             try
             {
-                Category category = await base.Mediator.Send(command);
+                Category category = await _mediator.Send(command);
 
                 if (category == null)
                 {

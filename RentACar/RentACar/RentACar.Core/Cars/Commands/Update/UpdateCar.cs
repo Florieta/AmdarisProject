@@ -25,5 +25,7 @@ namespace RentACar.Application.Cars.Commands.Update
         public Transmission Transmission { get; set; }
         public decimal DailyRate { get; set; }
         public int CategoryId { get; set; }
+
+        public int DealerId { get; set; }
     }
 }

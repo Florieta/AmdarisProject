@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RentACar.Application;
 using RentACar.Application.Abstract;
 using RentACar.Infrastructure.Data;
 using RentACar.Infrastructure.Repository;
@@ -17,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IDealerRepository, DealerRepository>();
             services.AddScoped<IRenterRepository, RenterRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            //services.AddScoped<IUserService, UserService>();
 
             return services;
         }

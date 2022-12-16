@@ -35,6 +35,7 @@ namespace RentACar.Application.Cars.Commands.Update
                 Fuel = request.Fuel,
                 Transmission = request.Transmission,
                 CategoryId = request.CategoryId,
+                DealerId = request.DealerId
             };
 
             await this.uniteOfWorkRepo.CarRepository.Update(car);

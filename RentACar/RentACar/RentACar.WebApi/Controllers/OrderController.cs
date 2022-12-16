@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Orders.Commands.Create;
 using RentACar.Application.Orders.Commands.Delete;
@@ -11,20 +13,29 @@ namespace RentACar.WebApi.Controllers
 {
     [Route("api/Order")]
     [ApiController]
-    public class OrderController : BaseController<OrderController>
+    public class OrderController : ControllerBase
     {
+        public readonly IMapper _mapper;
+        public readonly IMediator _mediator;
+
+
+        public OrderController(IMapper mapper, IMediator mediator)
+        {
+            _mediator = mediator;
+            _mapper = mapper;
+        }
         [HttpGet]
-        [Route("All")]
+
         public async Task<IActionResult> All()
         {
             GetAllOrders query = new GetAllOrders();
-            List<Order> result = await base.Mediator.Send(query);
-            List<GetOrderViewModel> mappedResult = base.Mapper.Map<List<GetOrderViewModel>>(result);
+            List<Order> result = await _mediator.Send(query);
+            List<GetOrderViewModel> mappedResult = _mapper.Map<List<GetOrderViewModel>>(result);
             return Ok(mappedResult);
         }
 
-        [HttpGet]
-        [Route("GetById/{orderId}")]
+        [HttpGet("{Id}")]
+
         public async Task<IActionResult> GetById(int orderId)
         {
             GetOrderById query = new GetOrderById()
@@ -32,37 +43,37 @@ namespace RentACar.WebApi.Controllers
                 Id = orderId
             };
 
-            Order order = await base.Mediator.Send(query);
+            Order order = await _mediator.Send(query);
 
             if (order == null)
             {
                 return NotFound();
             }
 
-            GetOrderViewModel getOrderDto = base.Mapper.Map<GetOrderViewModel>(order);
+            GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
             return Ok(getOrderDto);
         }
 
         [HttpPost]
-        [Route("Add")]
+
         public async Task<IActionResult> Add([FromBody] AddOrderModel addOrderDto)
         {
 
-            CreateOrder command = base.Mapper.Map<CreateOrder>(addOrderDto);
-            Order order = await base.Mediator.Send(command);
-            GetOrderViewModel getOrderDto = base.Mapper.Map<GetOrderViewModel>(order);
+            CreateOrder command = _mapper.Map<CreateOrder>(addOrderDto);
+            Order order = await _mediator.Send(command);
+            GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
             return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
         }
 
-        [HttpPost]
-        [Route("Edir/{orderId}")]
+        [HttpPut("{Id}")]
+
         public async Task<IActionResult> Edit([FromBody] EditOrderViewModel editOrderDto, int orderId)
         {
-            UpdateOrder command = base.Mapper.Map<UpdateOrder>(editOrderDto);
+            UpdateOrder command = _mapper.Map<UpdateOrder>(editOrderDto);
 
             command.Id = orderId;
 
-            Order order = await base.Mediator.Send(command);
+            Order order = await _mediator.Send(command);
 
             if (order == null)
             {
@@ -72,16 +83,15 @@ namespace RentACar.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("Delete/{orderId}")]
-        [ActionName(nameof(Delete))]
+        [HttpDelete("{Id}")]
+
         public async Task<IActionResult> Delete(int orderId)
         {
             DeleteOrder command = new() { Id = orderId };
 
             try
             {
-                Order order = await base.Mediator.Send(command);
+                Order order = await _mediator.Send(command);
 
                 return NoContent();
             }

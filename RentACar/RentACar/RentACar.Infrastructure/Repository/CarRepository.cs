@@ -34,7 +34,7 @@ namespace RentACar.Infrastructure.Repository
         public async Task<Car> GetByIdAsync(int carId)
         {
             var car = await _context.Cars
-                .FirstOrDefaultAsync(p => p.Id == carId);
+                .FirstOrDefaultAsync(p => p.Id == carId && p.IsDeleted == false);
 
             return car;
         }

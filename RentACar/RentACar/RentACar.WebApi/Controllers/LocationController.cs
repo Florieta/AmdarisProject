@@ -6,62 +6,68 @@ using RentACar.Application.Locations.Commands.Create;
 using RentACar.Application.Locations.Queries;
 using RentACar.Domain.Entitites;
 using RentACar.WebApi.ViewModels.Location;
+using AutoMapper;
+using MediatR;
 
 namespace RentACar.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Location")]
     [ApiController]
-    public class LocationController : BaseController<LocationController>
+    public class LocationController : ControllerBase
     {
+        public readonly IMapper _mapper;
+        public readonly IMediator _mediator;
+
+        public LocationController(IMapper mapper, IMediator mediator)
+        {
+            _mediator = mediator;
+            _mapper = mapper;
+        }
         [HttpGet]
-        [Route("All")]
         public async Task<IActionResult> All()
         {
             GetAllLocations query = new GetAllLocations();
-            List<Location> result = await base.Mediator.Send(query);
-            List<GetLocationViewModel> mappedResult = base.Mapper.Map<List<GetLocationViewModel>>(result);
+            List<Location> result = await _mediator.Send(query);
+            List<GetLocationViewModel> mappedResult = _mapper.Map<List<GetLocationViewModel>>(result);
             return Ok(mappedResult);
         }
 
-        [HttpGet]
-        [Route("GetById/{locationId}")]
-        public async Task<IActionResult> GetById(int locationId)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id)
         {
             GetLocationById query = new GetLocationById()
             {
-                Id = locationId
+                Id = Id
             };
 
-            Location location = await base.Mediator.Send(query);
+            Location location = await _mediator.Send(query);
 
             if (location == null)
             {
                 return NotFound();
             }
 
-            GetLocationViewModel getLocationModel = base.Mapper.Map<GetLocationViewModel>(location);
+            GetLocationViewModel getLocationModel = _mapper.Map<GetLocationViewModel>(location);
             return Ok(getLocationModel);
         }
 
         [HttpPost]
-        [Route("Add")]
         public async Task<IActionResult> Add([FromBody] AddLocationModel addLocationModel)
         {
-            CreateLocation command = base.Mapper.Map<CreateLocation>(addLocationModel);
-            Location location = await base.Mediator.Send(command);
-            GetLocationViewModel getLocationModel = base.Mapper.Map<GetLocationViewModel>(location);
+            CreateLocation command = _mapper.Map<CreateLocation>(addLocationModel);
+            Location location = await _mediator.Send(command);
+            GetLocationViewModel getLocationModel = _mapper.Map<GetLocationViewModel>(location);
             return CreatedAtAction(nameof(GetById), new { locationId = location.Id }, getLocationModel);
         }
 
-        [HttpPost]
-        [Route("Edir/{locationId}")]
+        [HttpPut("{Id}")]
         public async Task<IActionResult> Edit([FromBody] EditLocationVideModel editLocationModel, int locationId)
         {
-            UpdateLocation command = base.Mapper.Map<UpdateLocation>(editLocationModel);
+            UpdateLocation command = _mapper.Map<UpdateLocation>(editLocationModel);
 
             command.Id = locationId;
 
-            Location location = await base.Mediator.Send(command);
+            Location location = await _mediator.Send(command);
 
             if (location == null)
             {
@@ -71,8 +77,8 @@ namespace RentACar.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("Delete/locationId")]
+        [HttpDelete("{Id}")]
+
         public async Task<IActionResult> Delete(int locationId)
         {
             DeleteLocation command = new DeleteLocation()
@@ -82,7 +88,7 @@ namespace RentACar.WebApi.Controllers
 
             try
             {
-                Location location = await base.Mediator.Send(command);
+                Location location = await _mediator.Send(command);
 
                 if (location == null)
                 {
