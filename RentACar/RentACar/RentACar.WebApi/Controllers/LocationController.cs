@@ -17,18 +17,24 @@ namespace RentACar.WebApi.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-
-        public LocationController(IMapper mapper, IMediator mediator)
+        private readonly ILogger<CarController> _logger;
+        public LocationController(IMapper mapper, IMediator mediator, ILogger<CarController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            _logger.LogInformation("Retrieving the list of locations"); 
+
             GetAllLocations query = new GetAllLocations();
             List<Location> result = await _mediator.Send(query);
             List<GetLocationViewModel> mappedResult = _mapper.Map<List<GetLocationViewModel>>(result);
+
+            _logger.LogInformation($"There are {result.Count} locations in the fleet"); 
+
             return Ok(mappedResult);
         }
 
@@ -38,12 +44,15 @@ namespace RentACar.WebApi.Controllers
             GetLocationById query = new GetLocationById()
             {
                 Id = Id
-            };
+            }; 
+            
+            _logger.LogInformation("Retrieving the location by Id"); 
 
             Location location = await _mediator.Send(query);
 
             if (location == null)
             {
+                _logger.LogWarning("The Id could not be found");
                 return NotFound();
             }
 
@@ -57,6 +66,9 @@ namespace RentACar.WebApi.Controllers
             CreateLocation command = _mapper.Map<CreateLocation>(addLocationModel);
             Location location = await _mediator.Send(command);
             GetLocationViewModel getLocationModel = _mapper.Map<GetLocationViewModel>(location);
+
+            _logger.LogInformation($"A new {location.LocationName} was created  at {DateTime.Now.TimeOfDay}");
+
             return CreatedAtAction(nameof(GetById), new { locationId = location.Id }, getLocationModel);
         }
 
@@ -67,12 +79,16 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = locationId;
 
+            _logger.LogInformation("Request with the updated location was sent!");
+
             Location location = await _mediator.Send(command);
 
             if (location == null)
             {
                 return NotFound();
             }
+
+            _logger.LogInformation("The location was updated");
 
             return NoContent();
         }
@@ -89,7 +105,7 @@ namespace RentACar.WebApi.Controllers
             try
             {
                 Location location = await _mediator.Send(command);
-
+                _logger.LogInformation("A location was deleted from the list");
                 if (location == null)
                 {
                     return NotFound();

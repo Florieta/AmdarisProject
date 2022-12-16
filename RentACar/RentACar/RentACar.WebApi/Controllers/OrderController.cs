@@ -17,20 +17,27 @@ namespace RentACar.WebApi.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
+        private readonly ILogger<CarController> _logger;
 
-
-        public OrderController(IMapper mapper, IMediator mediator)
+        public OrderController(IMapper mapper, IMediator mediator, ILogger<CarController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
+
         [HttpGet]
 
         public async Task<IActionResult> All()
         {
+            _logger.LogInformation("Retrieving the list of bookings");
+
             GetAllOrders query = new GetAllOrders();
             List<Order> result = await _mediator.Send(query);
             List<GetOrderViewModel> mappedResult = _mapper.Map<List<GetOrderViewModel>>(result);
+
+            _logger.LogInformation($"There are {result.Count} bookings in the fleet");
+
             return Ok(mappedResult);
         }
 
@@ -38,6 +45,8 @@ namespace RentACar.WebApi.Controllers
 
         public async Task<IActionResult> GetById(int orderId)
         {
+            _logger.LogInformation("Retrieving the booking by Id"); 
+
             GetOrderById query = new GetOrderById()
             {
                 Id = orderId
@@ -47,6 +56,7 @@ namespace RentACar.WebApi.Controllers
 
             if (order == null)
             {
+                _logger.LogWarning("The Id could not be found");
                 return NotFound();
             }
 
@@ -62,6 +72,9 @@ namespace RentACar.WebApi.Controllers
             CreateOrder command = _mapper.Map<CreateOrder>(addOrderDto);
             Order order = await _mediator.Send(command);
             GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
+
+            _logger.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
+
             return CreatedAtAction(nameof(GetById), new { orderId = order.Id }, getOrderDto);
         }
 
@@ -73,12 +86,16 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = orderId;
 
+            _logger.LogInformation("Request with the updated booking was sent!");
+
             Order order = await _mediator.Send(command);
 
             if (order == null)
             {
                 return NotFound();
             }
+
+            _logger.LogInformation("The booking was updated");
 
             return NoContent();
         }
@@ -92,7 +109,7 @@ namespace RentACar.WebApi.Controllers
             try
             {
                 Order order = await _mediator.Send(command);
-
+                _logger.LogInformation("A booking was deleted from the list");
                 return NoContent();
             }
             catch (Exception ex)

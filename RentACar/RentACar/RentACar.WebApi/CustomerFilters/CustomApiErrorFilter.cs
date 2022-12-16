@@ -1,5 +1,6 @@
 ﻿
 using RentACar.Api.Logger;
+using RentACar.WebApi.Middleware;
 using System.Net;
 using System.Web.Http.Filters;
 
@@ -7,9 +8,9 @@ namespace RentACar.Api.CustomerFilters
 {
     public class CustomApiErrorFilter : ExceptionFilterAttribute
     {
-        private readonly ILog log;
+        private readonly ILog<ExceptionMiddleware> log;
         
-        public CustomApiErrorFilter(ILog log)
+        public CustomApiErrorFilter(ILog<ExceptionMiddleware> log)
         {
             this.log = log;
 

@@ -18,25 +18,33 @@ namespace RentACar.WebApi.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-
-        public CategoryController(IMapper mapper, IMediator mediator)
+        private readonly ILogger<CarController> _logger;
+        public CategoryController(IMapper mapper, IMediator mediator, ILogger<CarController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            _logger.LogInformation("Retrieving the list of categories");
+
             GetAllCategories query = new GetAllCategories();
             List<Category> result = await _mediator.Send(query);
             List<GetCategoryViewModel> mappedResult = _mapper.Map<List<GetCategoryViewModel>>(result);
+
+            _logger.LogInformation($"There are {result.Count} categories in the fleet");
+
             return Ok(mappedResult);
         }
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id)
         {
+            _logger.LogInformation("Retrieving the category by Id"); 
+
             GetCategoryById query = new GetCategoryById()
             {
                 Id = Id
@@ -46,6 +54,7 @@ namespace RentACar.WebApi.Controllers
 
             if (category == null)
             {
+                _logger.LogWarning("The Id could not be found");
                 return NotFound();
             }
 
@@ -60,6 +69,9 @@ namespace RentACar.WebApi.Controllers
             CreateCategory command = _mapper.Map<CreateCategory>(addCategoryDto);
             Category category = await _mediator.Send(command);
             GetCategoryViewModel getCategoryDto = _mapper.Map<GetCategoryViewModel>(category);
+
+            _logger.LogInformation($"{category.CategoryName} was created  at {DateTime.Now.TimeOfDay}");
+
             return CreatedAtAction(nameof(GetById), new { Id = category.Id }, getCategoryDto);
         }
 
@@ -71,12 +83,16 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = Id;
 
+            _logger.LogInformation("Request with the updated category was sent!");
+
             Category category = await _mediator.Send(command);
 
             if (category == null)
             {
                 return NotFound();
             }
+
+            _logger.LogInformation("The category was updated");
 
             return NoContent();
         }
@@ -97,6 +113,8 @@ namespace RentACar.WebApi.Controllers
                 {
                     return NotFound();
                 }
+
+                _logger.LogInformation($"Category with ID {Id} was deleted");
 
                 return NoContent();
             }
