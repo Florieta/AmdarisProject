@@ -1,7 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 using RentACar.Application.Abstract;
+using RentACar.Domain.Entitites.Identity;
+using RentACar.Infrastructure.Data;
 using RentACar.WebApi.Middleware;
 using System.Text;
 
@@ -16,6 +20,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddApplicationDbContext(builder.Configuration);
+builder.Services.AddIdentityCore<ApplicationUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddCors((options =>
 {
@@ -28,11 +34,7 @@ builder.Services.AddCors((options =>
                   });
 }));
 
-builder.Services.AddMediatR(typeof(ICarRepository));
-builder.Services.AddMediatR(typeof(ICategoryRepository));
-builder.Services.AddMediatR(typeof(IOrderRepository));
 
-builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -52,6 +54,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +64,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
+
+// Use general exceptions middleware
+app.UseExceptionMiddleware();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -73,8 +79,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Use general exceptions middleware
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

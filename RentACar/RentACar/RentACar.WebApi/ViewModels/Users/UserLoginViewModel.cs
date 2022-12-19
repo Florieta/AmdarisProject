@@ -4,7 +4,7 @@ namespace RentACar.WebApi.ViewModels.Users
 {
     public class UserLoginViewModel
     {
-        [EmailAddress]
+
         [Required]
         public string UserName { get; set; } = null!;
 

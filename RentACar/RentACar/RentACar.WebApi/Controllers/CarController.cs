@@ -23,25 +23,25 @@ namespace RentACar.WebApi.Controllers
 
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-        private readonly ILogger _logger;
 
-        public CarController(IMapper mapper, IMediator mediator, ILogger<ExceptionMiddleware> logger)
+        public CarController(IMapper mapper, IMediator mediator)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _logger = logger;
+
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            _logger.LogInformation("Retrieving the list of cars");
+            Log.Instance.LogInformation("Retrieving the list of cars");
+            
 
             GetAllCars query = new GetAllCars();
             List<Car> result = await _mediator.Send(query);
             List<GetCarViewModel> mappedResult = _mapper.Map<List<GetCarViewModel>>(result);
 
-            _logger.LogInformation($"There are {result.Count} cars in the fleet");
+            Log.Instance.LogInformation($"There are {result.Count} cars in the fleet");
 
             return Ok(mappedResult);
         }
@@ -49,7 +49,7 @@ namespace RentACar.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            _logger.LogInformation("Retrieving the car by Id");
+            Log.Instance.LogInformation("Retrieving the car by Id");
 
             GetCarById query = new GetCarById()
             {
@@ -60,7 +60,7 @@ namespace RentACar.WebApi.Controllers
 
             if (car == null)
             {
-                _logger.LogWarning("The Id could not be found");
+                Log.Instance.LogWarning("The Id could not be found");
                 return NotFound();
             }
 
@@ -75,7 +75,7 @@ namespace RentACar.WebApi.Controllers
             Car car = await _mediator.Send(command);
             GetCarViewModel getCarDto = _mapper.Map<GetCarViewModel>(car);
 
-            _logger.LogInformation($"{car.Make} {car.Model} was created  at {DateTime.Now.TimeOfDay}");
+            Log.Instance.LogInformation($"{car.Make} {car.Model} was created  at {DateTime.Now.TimeOfDay}");
 
             return CreatedAtAction(nameof(GetById), new { Id = car.Id }, getCarDto);
         }
@@ -88,7 +88,7 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = Id;
 
-            _logger.LogInformation("Request with the updated car was sent!");
+            Log.Instance.LogInformation("Request with the updated car was sent!");
 
             Car car = await _mediator.Send(command);
 
@@ -97,7 +97,7 @@ namespace RentACar.WebApi.Controllers
                 return NotFound();
             }
 
-            _logger.LogInformation("The car was updated");
+            Log.Instance.LogInformation("The car was updated");
 
             return NoContent();
         }
@@ -119,7 +119,7 @@ namespace RentACar.WebApi.Controllers
                     return NotFound();
                 }
 
-                _logger.LogInformation($"Car with ID {Id} was deleted");
+                Log.Instance.LogInformation($"Car with ID {Id} was deleted");
 
                 return NoContent();
             }
@@ -143,7 +143,7 @@ namespace RentACar.WebApi.Controllers
             if (car == null)
                 return NotFound();
 
-            _logger.LogInformation("The car was updated");
+            Log.Instance.LogInformation("The car was updated");
 
             return Ok(_mapper.Map<GetCarViewModel>(car));
         }

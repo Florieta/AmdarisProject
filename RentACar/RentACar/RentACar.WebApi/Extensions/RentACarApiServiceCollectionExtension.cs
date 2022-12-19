@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using RentACar.Api.Logger;
 using RentACar.Application;
 using RentACar.Application.Abstract;
 using RentACar.Infrastructure.Data;
 using RentACar.Infrastructure.Repository;
+using RentACar.WebApi.Middleware;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,7 +21,13 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IDealerRepository, DealerRepository>();
             services.AddScoped<IRenterRepository, RenterRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
-            //services.AddScoped<IUserService, UserService>();
+
+            //services.AddSingleton(typeof(ILog<>), typeof(Log<>));
+            services.AddMediatR(typeof(ICarRepository));
+            services.AddMediatR(typeof(ICategoryRepository));
+            services.AddMediatR(typeof(IOrderRepository));
+
+            services.AddAutoMapper(typeof(Program));
 
             return services;
         }
@@ -30,6 +39,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.UseSqlServer(connectionString));
 
             return services;
+        }
+    }
+
+    public static class MiddlewareExtensions
+    {
+        public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<ExceptionMiddleware>();
         }
     }
 }

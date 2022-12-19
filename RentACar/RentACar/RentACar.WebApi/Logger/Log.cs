@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RentACar.Api.Logger
 {
-    public sealed class Log : ILog<ExceptionMiddleware>
+    public sealed class Log
     {
         private static Log instance = null!;
         private static readonly object padlock = new object();
@@ -12,22 +12,26 @@ namespace RentACar.Api.Logger
 
         }
 
-        public static Log GetInstance
+        public static Log Instance
         {
             get
             {
-                lock (padlock)
+                if(instance == null)
                 {
-                    if (instance == null)
+                    lock (padlock)
                     {
-                        instance = new Log();
-                    }
+                        if (instance == null)
+                        {
+                            instance = new Log();
+                        }
 
-                    return instance;
+                       
+                    }
                 }
+                return instance;
             }
         }
-        public void LogExceptions(string message)
+        public void LogException(string message)
         {
             string fileName = string.Format("{0}_{1}.log", "Exception", DateTime.Now.ToShortDateString());
             string logFilePath = string.Format(@"{0}\{1}", AppDomain.CurrentDomain.BaseDirectory, fileName);

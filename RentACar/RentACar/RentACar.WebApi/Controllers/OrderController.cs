@@ -2,11 +2,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Api.Logger;
 using RentACar.Application.Orders.Commands.Create;
 using RentACar.Application.Orders.Commands.Delete;
 using RentACar.Application.Orders.Commands.Update;
 using RentACar.Application.Orders.Queries;
 using RentACar.Domain.Entitites;
+using RentACar.WebApi.Middleware;
 using RentACar.WebApi.ViewModels.Order;
 
 namespace RentACar.WebApi.Controllers
@@ -17,26 +19,24 @@ namespace RentACar.WebApi.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-        private readonly ILogger<CarController> _logger;
-
-        public OrderController(IMapper mapper, IMediator mediator, ILogger<CarController> logger)
+        
+        public OrderController(IMapper mapper, IMediator mediator)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet]
 
         public async Task<IActionResult> All()
         {
-            _logger.LogInformation("Retrieving the list of bookings");
+            Log.Instance.LogInformation("Retrieving the list of bookings");
 
             GetAllOrders query = new GetAllOrders();
             List<Order> result = await _mediator.Send(query);
             List<GetOrderViewModel> mappedResult = _mapper.Map<List<GetOrderViewModel>>(result);
 
-            _logger.LogInformation($"There are {result.Count} bookings in the fleet");
+            Log.Instance.LogInformation($"There are {result.Count} bookings in the fleet");
 
             return Ok(mappedResult);
         }
@@ -45,7 +45,7 @@ namespace RentACar.WebApi.Controllers
 
         public async Task<IActionResult> GetById(int Id)
         {
-            _logger.LogInformation("Retrieving the booking by Id"); 
+            Log.Instance.LogInformation("Retrieving the booking by Id");
 
             GetOrderById query = new GetOrderById()
             {
@@ -56,7 +56,7 @@ namespace RentACar.WebApi.Controllers
 
             if (order == null)
             {
-                _logger.LogWarning("The Id could not be found");
+                Log.Instance.LogWarning("The Id could not be found");
                 return NotFound();
             }
 
@@ -73,7 +73,7 @@ namespace RentACar.WebApi.Controllers
             Order order = await _mediator.Send(command);
             GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
 
-            _logger.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
+            Log.Instance.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
 
             return CreatedAtAction(nameof(GetById), new { Id = order.Id }, getOrderDto);
         }
@@ -86,7 +86,7 @@ namespace RentACar.WebApi.Controllers
 
             command.Id = Id;
 
-            _logger.LogInformation("Request with the updated booking was sent!");
+            Log.Instance.LogInformation("Request with the updated booking was sent!");
 
             Order order = await _mediator.Send(command);
 
@@ -95,7 +95,7 @@ namespace RentACar.WebApi.Controllers
                 return NotFound();
             }
 
-            _logger.LogInformation("The booking was updated");
+            Log.Instance.LogInformation("The booking was updated");
 
             return NoContent();
         }
@@ -109,7 +109,7 @@ namespace RentACar.WebApi.Controllers
             try
             {
                 Order order = await _mediator.Send(command);
-                _logger.LogInformation("A booking was deleted from the list");
+                Log.Instance.LogInformation("A booking was deleted from the list");
                 return NoContent();
             }
             catch (Exception ex)

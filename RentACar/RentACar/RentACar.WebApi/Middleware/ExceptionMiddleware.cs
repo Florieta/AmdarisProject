@@ -10,17 +10,17 @@ namespace RentACar.WebApi.Middleware
         public class ExceptionMiddleware
         {
             private readonly RequestDelegate _next;
-            private readonly ILogger<ExceptionMiddleware> _logger;
+
 
             /// <summary>
             /// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
             /// </summary>
             /// <param name="next">delegate.</param>
             /// <param name="logger">logger.</param>
-            public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+            public ExceptionMiddleware(RequestDelegate next)
             {
                 _next = next;
-                _logger = logger;
+               
             }
 
             /// <summary>
@@ -32,7 +32,14 @@ namespace RentACar.WebApi.Middleware
             {
                 try
                 {
-                    await _next(context);
+                Log.Instance.LogInformation("Request Sent");
+
+                await _next(context);
+
+
+                Log.Instance.LogInformation("Response Sent");
+
+                
                 }
                 catch (Exception error)
                 {
@@ -47,12 +54,11 @@ namespace RentACar.WebApi.Middleware
                         Exception => (int)HttpStatusCode.BadRequest, // custom application error
                         _ => (int)HttpStatusCode.InternalServerError, // unhandled error
                     };
-                    _logger.LogCritical($"Something went wrong: {error}");
+                    Log.Instance.LogException($"{error}");
 
                     var result = JsonSerializer.Serialize(new { message = error?.Message });
                     await response.WriteAsync(result);
                 }
             }
         }
-
 }
