@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RentACar.Api.Logger;
 using RentACar.Application;
 using RentACar.Application.Abstract;
 using RentACar.Infrastructure.Data;
@@ -22,7 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRenterRepository, RenterRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
 
-            //services.AddSingleton(typeof(ILog<>), typeof(Log<>));
             services.AddMediatR(typeof(ICarRepository));
             services.AddMediatR(typeof(ICategoryRepository));
             services.AddMediatR(typeof(IOrderRepository));

@@ -1,6 +1,7 @@
 ﻿using RentACar.WebApi.Middleware;
 using System.Text;
 
+
 namespace RentACar.Api.Logger
 {
     public sealed class Log
@@ -16,7 +17,7 @@ namespace RentACar.Api.Logger
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     lock (padlock)
                     {
@@ -25,7 +26,7 @@ namespace RentACar.Api.Logger
                             instance = new Log();
                         }
 
-                       
+
                     }
                 }
                 return instance;
@@ -47,7 +48,7 @@ namespace RentACar.Api.Logger
             }
         }
 
-       
+
         public void LogWarning(string message)
         {
             string fileName = string.Format("{0}_{1}.log", "Warning", DateTime.Now.ToShortDateString());

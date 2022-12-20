@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
-using RentACar.Api.Logger;
 using System.Security.Claims;
 using RentACar.Application.Cars.Queries;
 using RentACar.Domain.Entitites;
@@ -11,7 +10,7 @@ using RentACar.Application.Cars.Commands.Delete;
 using RentACar.Application.Cars.Commands.Add;
 using AutoMapper;
 using MediatR;
-using RentACar.WebApi.Middleware;
+using RentACar.Api.Logger;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -28,20 +27,18 @@ namespace RentACar.WebApi.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
             Log.Instance.LogInformation("Retrieving the list of cars");
-            
 
             GetAllCars query = new GetAllCars();
             List<Car> result = await _mediator.Send(query);
             List<GetCarViewModel> mappedResult = _mapper.Map<List<GetCarViewModel>>(result);
 
-            Log.Instance.LogInformation($"There are {result.Count} cars in the fleet");
+           Log.Instance.LogInformation($"There are {result.Count} cars in the fleet");
 
             return Ok(mappedResult);
         }
@@ -60,7 +57,7 @@ namespace RentACar.WebApi.Controllers
 
             if (car == null)
             {
-                Log.Instance.LogWarning("The Id could not be found");
+                Log.Instance.LogException("The Id could not be found");
                 return NotFound();
             }
 
@@ -137,7 +134,7 @@ namespace RentACar.WebApi.Controllers
                 CategoryId = categoryId,
                 CarId = Id
             };
-           
+
             var car = await _mediator.Send(command);
 
             if (car == null)
@@ -148,6 +145,6 @@ namespace RentACar.WebApi.Controllers
             return Ok(_mapper.Map<GetCarViewModel>(car));
         }
 
-        
+
     }
 }

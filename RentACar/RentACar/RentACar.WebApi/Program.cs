@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using RentACar.Application.Abstract;
 using RentACar.Domain.Entitites.Identity;
 using RentACar.Infrastructure.Data;
-using RentACar.WebApi.Middleware;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

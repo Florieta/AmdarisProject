@@ -19,7 +19,7 @@ namespace RentACar.WebApi.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-        
+
         public OrderController(IMapper mapper, IMediator mediator)
         {
             _mediator = mediator;
