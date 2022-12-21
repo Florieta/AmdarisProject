@@ -10,7 +10,13 @@ namespace RentACar.WebApi.Profiles
     {
         public OrderProfile()
         {
-            CreateMap<Order, GetOrderViewModel>();
+            CreateMap<Order, GetOrderViewModel>()
+                .ForMember("CarMake", x => x.MapFrom(y => y.Car.Make))
+                .ForMember("CarModel", x => x.MapFrom(y => y.Car.Model))
+                .ForMember("RegNumber", x => x.MapFrom(y => y.Car.RegNumber))
+                .ForMember("PickUpLocation", x => x.MapFrom(y => y.PickUpLocation.LocationName))
+                .ForMember("DropOffLocation", x => x.MapFrom(y => y.DropOffLocation.LocationName))
+                .ForMember("Renter", x => x.MapFrom(y => y.Renter.ApplicationUser.FirstName));
             CreateMap<AddOrderModel, CreateOrder>();
             CreateMap<EditOrderViewModel, UpdateOrder>();
         }

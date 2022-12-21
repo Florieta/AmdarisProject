@@ -28,6 +28,7 @@ namespace RentACar.Infrastructure.Repository
         {
             return await _context.Cars
                 .Where(c => c.IsDeleted == false && c.IsAvailable == true)
+                .Include(c => c.Category)
                 .ToListAsync();
         }
 

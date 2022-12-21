@@ -10,7 +10,8 @@ namespace RentACar.WebApi.Profiles
     {
         public CarProfile()
         {
-            CreateMap<Car, GetCarViewModel>();
+            CreateMap<Car, GetCarViewModel>()
+                .ForMember("CategoryName", x => x.MapFrom(y => y.Category.CategoryName));
             CreateMap<AddCarModel, CreateCar>();
             CreateMap<EditCarViewModel, UpdateCar>();
         }

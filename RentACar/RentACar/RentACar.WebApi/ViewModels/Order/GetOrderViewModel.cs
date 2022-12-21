@@ -18,16 +18,20 @@ namespace RentACar.WebApi.ViewModels.Order
 
         public bool IsPaid { get; set; } = false;
 
-        public int CarId { get; set; }
+        public string CarMake { get; set; } = null!;
 
-        public int PickUpLocationId { get; set; }
+        public string CarModel { get; set; } = null!;
+
+        public string RegNumber { get; set; } = null!;
+
+        public string PickUpLocation { get; set; } = null!;
 
 
-        public int DropOffLocationId { get; set; }
+        public string DropOffLocation { get; set; } = null!;
 
         public string? Insurance { get; set; }
 
-        public string RenterId { get; set; } = null!;
+        public string Renter { get; set; } = null!;
 
     }
 }

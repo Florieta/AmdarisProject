@@ -33,7 +33,13 @@ namespace RentACar.Infrastructure.Repository
         public async Task<Order> GetByIdAsync(int orderId)
         {
             var order = await _context.Orders
-                .FirstOrDefaultAsync(p => p.Id == orderId);
+                .Where(p => p.Id == orderId)
+                .Include(x => x.Car)
+                .Include(x => x.DropOffLocation)
+                .Include(x => x.PickUpLocation)
+                .Include(x => x.Renter)
+                .ThenInclude(x => x.ApplicationUser)
+                .FirstOrDefaultAsync();
 
             return order;
         }

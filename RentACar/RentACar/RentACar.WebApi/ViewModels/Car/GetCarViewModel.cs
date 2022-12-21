@@ -30,7 +30,7 @@ namespace RentACar.WebApi.ViewModels.Car
 
         public bool IsAvailable { get; set; } = true;
 
-        public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = null!;
 
     }
 }
