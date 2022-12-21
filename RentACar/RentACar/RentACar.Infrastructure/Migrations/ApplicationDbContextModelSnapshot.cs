@@ -47,6 +47,22 @@ namespace RentACar.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "d86dba5034324ec481562264fecc1d3b",
+                            ConcurrencyStamp = "02082484-8239-4238-bcee-2c81b12dd3f7",
+                            Name = "Dealer",
+                            NormalizedName = "DEALER"
+                        },
+                        new
+                        {
+                            Id = "5af4facac8424694b91c57854ab6b598",
+                            ConcurrencyStamp = "079416ee-a6ce-47b9-a49f-782f23d30a67",
+                            Name = "Renter",
+                            NormalizedName = "RENTER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -134,6 +150,18 @@ namespace RentACar.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "d3211a8d-efde-4a19-8087-79cde4679276",
+                            RoleId = "d86dba5034324ec481562264fecc1d3b"
+                        },
+                        new
+                        {
+                            UserId = "c6e570fd-d889-4a67-a36a-0ecbe758bc2c",
+                            RoleId = "5af4facac8424694b91c57854ab6b598"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -465,7 +493,7 @@ namespace RentACar.Infrastructure.Migrations
                         {
                             Id = "d3211a8d-efde-4a19-8087-79cde4679276",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "afbca656-e897-463f-b805-413fac1f7355",
+                            ConcurrencyStamp = "dfeeffd4-9b54-4b6b-950c-bd00523bf44b",
                             DealerId = 1,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
@@ -474,10 +502,10 @@ namespace RentACar.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHMp/IZ9hl8G16ACqOuwCXnQpEcneSSroLx1QYBVFyHBa4/TCxjKUH0LKLUCuX5k2g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEoN12KXz6WcxjIypP+ByXycLgBnGBsfBuqdYLp0H+r920008Z3YFLAq+btJQrvc/w==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "acb099da-8efa-4072-acc5-8f6e8efd1633",
+                            SecurityStamp = "9259885f-0265-4709-b58e-37487d440362",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -485,7 +513,7 @@ namespace RentACar.Infrastructure.Migrations
                         {
                             Id = "c6e570fd-d889-4a67-a36a-0ecbe758bc2c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f9d60bd8-593b-45d2-b86b-8ac7823f14dd",
+                            ConcurrencyStamp = "93f0489e-f4f9-410b-965f-6e022d075c1b",
                             Email = "user@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Peter",
@@ -493,11 +521,11 @@ namespace RentACar.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDUHJXnIGhlpz6dqCpzDPBGr7cjOM/WGa3dxnGTFEYpkSkaUj0o2ouVEFpYvUMxUUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPI2k+aZC7bhBODAIT9lAfcARMsT9lDeoBHCaht/FuCzrNyLxrjK/ZFX4KeKN3g6tQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             RenterId = 1,
-                            SecurityStamp = "5b446532-6bcd-4bec-b49a-f9ce9f8263ea",
+                            SecurityStamp = "c49c2c88-5f1e-4157-8516-df734418a59d",
                             TwoFactorEnabled = false,
                             UserName = "User1"
                         });

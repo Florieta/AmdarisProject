@@ -39,6 +39,8 @@ namespace RentACar.Infrastructure.Data
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
             builder.ApplyConfiguration(new RenterConfiguration());
             builder.ApplyConfiguration(new DealerConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
 
             base.OnModelCreating(builder);
         }
