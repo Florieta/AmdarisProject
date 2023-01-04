@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import { AuthProvider } from './context/AuthContext.js';
 import * as carService from './services/carService.js';
 
 import Header from './components/Header/Header';
@@ -24,6 +25,7 @@ function App() {
     }, []);
 
   return (
+    <AuthProvider>
     <div id="box">
       <Header />
       <main id="main-content">
@@ -38,6 +40,7 @@ function App() {
       </main>
      
     </div>
+    </AuthProvider>
   );
 }
 
