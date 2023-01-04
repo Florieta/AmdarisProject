@@ -30,6 +30,11 @@ namespace RentACar.Infrastructure.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Order>> GetAllOrdersByRenterIdAsync(int renterId)
+        {
+            return await _context.Orders.Where(b => b.IsActive == true && b.IsDeleted == false && b.RenterId == renterId)
+                .ToListAsync();
+        }
         public async Task<Order> GetByIdAsync(int orderId)
         {
             var order = await _context.Orders

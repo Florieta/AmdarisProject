@@ -10,7 +10,6 @@ namespace RentACar.Application.Abstract
     public interface IRenterRepository
     {
         Task<Renter> GetByIdAsync(int renterId);
-
         Task AddAsync(Renter renter);
 
         Task<List<Renter>> GetAllAsync();

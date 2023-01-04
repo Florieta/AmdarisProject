@@ -11,6 +11,8 @@ namespace RentACar.Application.Abstract
     {
         Task<Order> GetByIdAsync(int id);
 
+        Task<List<Order>> GetAllOrdersByRenterIdAsync(int renterId);
+
         Task AddAsync(Order order);
 
         void Remove(Order order);
