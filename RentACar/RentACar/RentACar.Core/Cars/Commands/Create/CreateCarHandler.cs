@@ -9,11 +9,11 @@ using RentACar.Application.Abstract;
 
 namespace RentACar.Application.Cars.Commands.Create
 {
-    public class CreateLocationHandler : IRequestHandler<CreateCar, Car>
+    public class CreateCarHandler : IRequestHandler<CreateCar, Car>
     {
         private readonly IUnitOfWork unitOfWorkRepo;
 
-        public CreateLocationHandler(IUnitOfWork unitOfWorkRepo)
+        public CreateCarHandler(IUnitOfWork unitOfWorkRepo)
         {
             this.unitOfWorkRepo = unitOfWorkRepo;
         }

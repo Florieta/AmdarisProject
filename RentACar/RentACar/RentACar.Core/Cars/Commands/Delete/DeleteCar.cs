@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Cars.Commands.Delete
 {
-    public class DeleteCar : IRequest<Car>
+    public class DeleteRating : IRequest<Car>
     {
         public int Id { get; set; }
     }

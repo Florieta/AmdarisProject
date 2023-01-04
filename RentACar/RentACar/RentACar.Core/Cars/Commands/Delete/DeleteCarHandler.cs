@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Cars.Commands.Delete
 {
-    public class DeleteCarHandler : IRequestHandler<DeleteCar, Car>
+    public class DeleteRatingHandler : IRequestHandler<DeleteRating, Car>
     {
         private readonly IUnitOfWork uniteOfWorkRepo;
 
-        public DeleteCarHandler(IUnitOfWork uniteOfWorkRepo)
+        public DeleteRatingHandler(IUnitOfWork uniteOfWorkRepo)
         {
             this.uniteOfWorkRepo = uniteOfWorkRepo;
         }
 
-        public async Task<Car> Handle(DeleteCar request, CancellationToken cancellationToken)
+        public async Task<Car> Handle(DeleteRating request, CancellationToken cancellationToken)
         {
             var car = await this.uniteOfWorkRepo.CarRepository.GetByIdAsync(request.Id);
 

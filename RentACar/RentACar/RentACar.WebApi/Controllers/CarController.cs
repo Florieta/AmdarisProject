@@ -102,7 +102,7 @@ namespace RentACar.WebApi.Controllers
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(int Id)
         {
-            DeleteCar command = new DeleteCar()
+            DeleteRating command = new DeleteRating()
             {
                 Id = Id
             };

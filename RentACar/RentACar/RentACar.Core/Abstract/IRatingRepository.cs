@@ -11,6 +11,8 @@ namespace RentACar.Application.Abstract
     {
         Task<Rating> GetByIdAsync(int ratingId);
 
+        Task<List<Rating>> GetAllAsyncByCarId(int carId);
+
         Task AddAsync(Rating rating);
 
         Task<List<Rating>> GetAllAsync();

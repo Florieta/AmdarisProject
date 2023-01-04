@@ -30,6 +30,12 @@ namespace RentACar.Infrastructure.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Rating>> GetAllAsyncByCarId(int carId)
+        {
+            return await _context.Ratings.Where(x => x.CarId == carId)
+                .ToListAsync();
+        }
+
         public async Task<Rating> GetByIdAsync(int ratingId)
         {
             var renter = await _context.Ratings

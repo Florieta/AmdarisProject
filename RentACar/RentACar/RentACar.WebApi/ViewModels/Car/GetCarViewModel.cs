@@ -20,11 +20,11 @@ namespace RentACar.WebApi.ViewModels.Car
 
         public bool NavigationSystem { get; set; }
 
-        public string Fuel { get; set; }
+        public string Fuel { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
 
-        public string Transmission { get; set; }
+        public string Transmission { get; set; } = null!;
 
         public decimal DailyRate { get; set; }
 
