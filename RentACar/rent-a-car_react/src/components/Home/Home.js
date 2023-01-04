@@ -1,11 +1,12 @@
 
 import LatestCars from "./LatestCars/LatestCars";
 
+
 const Home = ({cars}) => {
 
     return (
+       
         <section id="welcome-world">
-
             <div className="welcome-message">
                 <h2>ALL new cars are here</h2>
             </div>

@@ -1,0 +1,21 @@
+.no-bookings {
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+}
+
+.otherBooking {
+    align-items: inherit;
+    width: 24%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-shadow: -8px -2px 28px -8px #000000;
+}
+
+.my-bookings .my-bookings-list,
+.dashboard .other-bookings-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
