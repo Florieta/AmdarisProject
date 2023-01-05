@@ -11,9 +11,9 @@ const Header = () => {
                 </Link>
                 </h1>
             <nav>
-            {user.userName && <span>{user.userName}</span>}
+            {user.token && <span>Welcome, {user.user.firstName}!</span>}
                <Link to="/catalog">Cars</Link>
-                {user
+                {user.token
                     ? <div id="user">
                         <Link to="/create">Create Gar</Link>
                         <Link to="/my-bookings">My bookings</Link>

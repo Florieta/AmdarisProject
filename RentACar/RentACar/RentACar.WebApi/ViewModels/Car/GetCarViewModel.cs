@@ -32,5 +32,6 @@ namespace RentACar.WebApi.ViewModels.Car
 
         public string CategoryName { get; set; } = null!;
 
+
     }
 }

@@ -3,7 +3,7 @@ import LatestCars from "./LatestCars/LatestCars";
 
 
 const Home = ({cars}) => {
-
+    
     return (
        
         <section id="welcome-world">

@@ -1,5 +1,5 @@
-export default function ratingCalculator()  {
-    const ratings = [4, 5, 3, 5]
+export default function ratingCalculator(ratings)  {
+   
     let sum = 0;
     ratings.map(element => {
         sum += element

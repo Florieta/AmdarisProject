@@ -34,5 +34,6 @@ namespace RentACar.WebApi.ViewModels.Order
 
         public string RenterId { get; set; } = null!;
 
+
     }
 }
