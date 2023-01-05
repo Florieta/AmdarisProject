@@ -13,6 +13,7 @@ import Catalog from './components/Catalog/Catalog.js';
 import CarDetails from './components/CarDeatils/CarDetails.js';
 import BookingForm from './components/BookingForm/BookingForm.js';
 import MyBookings from './components/MyBookings/MyBookings.js'
+import Create from './components/Create/Create.js';
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/create" element={<Create />} />
         <Route path="/catalog" element={<Catalog cars={cars}/>} />
         <Route path="/catalog/:carId" element={<CarDetails cars={cars}/>} />
         <Route path="/booking/:carId" element={<BookingForm cars={cars}/>} />
