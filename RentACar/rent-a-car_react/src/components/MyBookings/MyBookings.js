@@ -10,14 +10,14 @@ const MyBookings = () => {
     const { user } = useAuthContext();
 
     useEffect(() => {
-        bookingService.getAllBookigs(user.renterId)
+        bookingService.getAllBookigs(1)
             .then(bookingResult => {
                 setBookings(bookingResult);
             });
     }, []);
 
     return (
-        <section id="my-pets-page" className="my-pets">
+        <section id="my-booking-page" className="my-booking">
             <h1>My Bookings</h1>
 
             <BookingList bookings={bookings} />

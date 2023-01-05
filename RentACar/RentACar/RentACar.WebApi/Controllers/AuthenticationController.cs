@@ -57,7 +57,8 @@ namespace RentACar.WebApi.Controllers
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo,
-                    token_id = id
+                    token_id = id,
+                    user = user
                 });
 
             }

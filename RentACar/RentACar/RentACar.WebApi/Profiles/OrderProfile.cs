@@ -15,8 +15,7 @@ namespace RentACar.WebApi.Profiles
                 .ForMember("CarModel", x => x.MapFrom(y => y.Car.Model))
                 .ForMember("RegNumber", x => x.MapFrom(y => y.Car.RegNumber))
                 .ForMember("PickUpLocation", x => x.MapFrom(y => y.PickUpLocation.LocationName))
-                .ForMember("DropOffLocation", x => x.MapFrom(y => y.DropOffLocation.LocationName))
-                .ForMember("Renter", x => x.MapFrom(y => y.Renter.ApplicationUser.FirstName));
+                .ForMember("DropOffLocation", x => x.MapFrom(y => y.DropOffLocation.LocationName));
             CreateMap<AddOrderModel, CreateOrder>();
             CreateMap<EditOrderViewModel, UpdateOrder>();
         }

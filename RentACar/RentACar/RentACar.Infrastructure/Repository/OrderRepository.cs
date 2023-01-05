@@ -32,7 +32,8 @@ namespace RentACar.Infrastructure.Repository
 
         public async Task<List<Order>> GetAllOrdersByRenterIdAsync(int renterId)
         {
-            return await _context.Orders.Where(b => b.IsActive == true && b.IsDeleted == false && b.RenterId == renterId)
+            return await _context.Orders.Include(x => x.Car).Include(x => x.DropOffLocation).Include(x => x.PickUpLocation)
+                .Where(b => b.IsActive == true && b.IsDeleted == false && b.RenterId == renterId)
                 .ToListAsync();
         }
         public async Task<Order> GetByIdAsync(int orderId)
