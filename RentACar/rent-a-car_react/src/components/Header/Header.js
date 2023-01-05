@@ -15,7 +15,7 @@ const Header = () => {
                <Link to="/catalog">Cars</Link>
                 {user.token
                     ? <div id="user">
-                        <Link to="/create">Create Gar</Link>
+                        <Link to="/create">Add Car</Link>
                         <Link to="/my-bookings">My bookings</Link>
                         <Link to="/logout">Logout</Link>
                     </div>
