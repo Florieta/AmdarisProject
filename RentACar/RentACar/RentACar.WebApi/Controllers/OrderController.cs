@@ -41,30 +41,31 @@ namespace RentACar.WebApi.Controllers
             return Ok(mappedResult);
         }
 
-        //[HttpGet("{Id}")]
+        [HttpGet("{Id}")]
 
-        //public async Task<IActionResult> GetById(int Id)
-        //{
-        //    Log.Instance.LogInformation("Retrieving the booking by Id");
+        public async Task<IActionResult> GetById(int Id)
+        {
+            Log.Instance.LogInformation("Retrieving the booking by Id");
 
-        //    GetOrderById query = new GetOrderById()
-        //    {
-        //        Id = Id
-        //    };
+            GetOrderById query = new GetOrderById()
+            {
+                Id = Id
+            };
 
-        //    Order order = await _mediator.Send(query);
+            Order order = await _mediator.Send(query);
 
-        //    if (order == null)
-        //    {
-        //        Log.Instance.LogWarning("The Id could not be found");
-        //        return NotFound();
-        //    }
+            if (order == null)
+            {
+                Log.Instance.LogWarning("The Id could not be found");
+                return NotFound();
+            }
 
-        //    GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
-        //    return Ok(getOrderDto);
-        //}
+            GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
+            return Ok(getOrderDto);
+        }
 
-        [HttpGet("{renterId}")]
+        [HttpGet]
+        [Route("Renter/{renterId}")]
 
         public async Task<IActionResult> GetAllBookingsByRenter(int renterId)
         {
@@ -82,19 +83,19 @@ namespace RentACar.WebApi.Controllers
             return Ok(mappedResult);
         }
 
-        //[HttpPost]
+        [HttpPost]
 
-        //public async Task<IActionResult> Add([FromBody] AddOrderModel addOrderDto)
-        //{
+        public async Task<IActionResult> Add([FromBody] AddOrderModel addOrderDto)
+        {
 
-        //    CreateOrder command = _mapper.Map<CreateOrder>(addOrderDto);
-        //    Order order = await _mediator.Send(command);
-        //    GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
+            CreateOrder command = _mapper.Map<CreateOrder>(addOrderDto);
+            Order order = await _mediator.Send(command);
+            GetOrderViewModel getOrderDto = _mapper.Map<GetOrderViewModel>(order);
 
-        //    Log.Instance.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
+            Log.Instance.LogInformation($"A new booking was created  at {DateTime.Now.TimeOfDay}");
 
-        //    return CreatedAtAction(nameof(GetById), new { Id = order.Id }, getOrderDto);
-        //}
+            return CreatedAtAction(nameof(GetById), new { Id = order.Id }, getOrderDto);
+        }
 
         [HttpPut("{Id}")]
 
