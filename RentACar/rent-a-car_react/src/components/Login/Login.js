@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import * as authService from "../../services/authService";
 
@@ -44,7 +44,7 @@ const Login = () => {
                     <input type="submit" className="btn submit" defaultValue="Login" />
                     <p className="field">
                         <span>
-                            If you don't have profile click <a href="#">here</a>
+                            If you don't have profile click <Link to="/register">here</Link>
                         </span>
                     </p>
                 </div>

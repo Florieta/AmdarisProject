@@ -3,6 +3,8 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import * as ratingService from "../../../services/ratingService";
 import ratingCalculator from "../../../utils/ratingCalculator";
+import Rating from "../Rating/Rating";
+
 
 const LatestCars = ({
     car
@@ -12,12 +14,11 @@ const LatestCars = ({
     useEffect(() => {
         ratingService.getAllRatingsByCar(car.id)
             .then(ratingResult => {
-                console.log(ratingResult)
                 setRatings(ratingResult);
             });
     }, []);
 
-    const averageRating = ratingCalculator(ratings.map(x => x.rate, [] ));
+    let averageRating = ratingCalculator(ratings.map(x => x.rate));
 
     return (
         <div className="game">
@@ -28,8 +29,8 @@ const LatestCars = ({
         <h4>Category: {car.categoryName}</h4>
         <div className="rating">
         <p>Rating: {averageRating}</p>
-        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span> 
         </div>
+        <Rating key={car.id} averageRating={averageRating}/>
         <div className="data-buttons">
             <Link to={`/catalog/${car.id}`} className="btn details-btn">Details</Link>
         </div>

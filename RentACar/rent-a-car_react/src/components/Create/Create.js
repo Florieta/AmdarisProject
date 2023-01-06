@@ -1,19 +1,51 @@
+import { useQuery } from "@tanstack/react-query";
+
 const Create = () => {
+    const getCategories = () => {
+        return fetch('https://localhost:7016/api/Category')
+            .then(res => res.json())
+    }
+
+    const { isLoading, isError, data, error } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getCategories,
+    })
+
+    if (isLoading) {
+        return <span>Loading...</span>
+    }
+
+    if (isError) {
+        return <span>Error: {error.message}</span>
+    }
+
     return (
         <section id="create-page" className="auth">
             <form id="create">
                 <div className="container">
-                <label htmlFor="make">Make:</label>
-                    <input type="text" id="make" name="make" placeholder="Enter make make..."/>
+                    <label htmlFor="make">Make:</label>
+                    <input type="text" id="make" name="make" placeholder="Enter make make..." />
+
+                    <label htmlFor="selectedCategory"> Category: </label>
+                    <select
+                        id="selectedCategory"
+                    >
+                        <option />
+                        {data.map((x) => (
+                            <option key={x.id} value={x.categoryName}>
+                                {x.categoryName}
+                            </option>
+                        ))}
+                    </select>
 
                     <label htmlFor="model">Model:</label>
-                    <input type="text" id="model" name="model" placeholder="Enter make model..."/>
+                    <input type="text" id="model" name="model" placeholder="Enter make model..." />
 
                     <label htmlFor="reg-number">Registration number:</label>
-                    <input type="text" id="reg" name="regNumber" placeholder="Enter make registration number..."/>
+                    <input type="text" id="reg" name="regNumber" placeholder="Enter make registration number..." />
 
                     <label htmlFor="make-year">Year:</label>
-                    <input type="text" id="year" name="year" placeholder="Enter make year..."/>
+                    <input type="text" id="year" name="year" placeholder="Enter make year..." />
 
                     <label htmlFor="car-img">Image:</label>
                     <input type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo..." />

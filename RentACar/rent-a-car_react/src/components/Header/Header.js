@@ -9,22 +9,30 @@ const Header = () => {
             <h1>
                 <Link className="home" to="/">Rent a Car
                 </Link>
-                </h1>
+            </h1>
             <nav>
-            {user.token && <span>Welcome, {user.user.firstName}!</span>}
-               <Link to="/catalog">Cars</Link>
+                {user.token && <span>Welcome, {user.user.userName}!</span>}
+                <Link to="/catalog">Cars</Link>
                 {user.token
                     ? <div id="user">
-                        <Link to="/create">Add Car</Link>
-                        <Link to="/my-bookings">My bookings</Link>
-                        <Link to="/logout">Logout</Link>
+                        {!user.user.renterId
+                            ? <div id="dealer">
+                                <Link to="/create">Add Car</Link>
+                                <Link to="/my-cars">My cars</Link>
+                                <Link to="/logout">Logout</Link>
+                            </div>
+                            : <div id="renter"> 
+                            <Link to="/my-bookings">My bookings</Link>
+                            <Link to="/logout">Logout</Link>
+                            </div>}
+                        
                     </div>
                     : <div id="guest">
                         <Link to="/login">Login</Link>
                         <Link to="/register">Register</Link>
                     </div>
                 }
-               
+
             </nav>
         </header>
     );
