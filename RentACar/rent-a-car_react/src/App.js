@@ -3,15 +3,16 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.js';
 
 import Header from './components/Header/Header';
-import Home from './pages/Home.js';
-import Logout from './components/Logout/Logout.js';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Catalog from './components/Catalog/Catalog.js';
-import CarDetails from './components/CarDeatils/CarDetails.js';
+import Home from './pages/Home/Home.js';
+import Logout from './pages/Logout/Logout.js';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Catalog from './pages/Catalog/Catalog.js';
+import CarDetails from './pages/CarDeatils/CarDetails.js';
 import BookingForm from './components/BookingForm/BookingForm.js';
-import MyBookings from './components/MyBookings/MyBookings.js'
+import MyBookings from './pages/MyBookings/MyBookings.js'
 import Create from './components/Create/Create.js';
+import MyCars from './pages/MyCars/MyCars.js'
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/my-cars" element={<MyCars />} />
         <Route path="/create" element={<Create />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:carId" element={<CarDetails />} />

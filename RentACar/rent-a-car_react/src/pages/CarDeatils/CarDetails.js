@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom';
 import { CircularProgress, Alert } from '@mui/material'
-import CarCard from '../CarCard/CarCard';
+import CarCard from '../../components/CarCard/CarCard';
 const CarDetails = () => {
    
     const { carId } = useParams();

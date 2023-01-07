@@ -1,7 +1,7 @@
 import { CircularProgress, Alert } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import LatestCars from "../components/LatestCars/LatestCars.js"
+import LatestCars from "../../components/LatestCars/LatestCars.js"
 
 
 const Home = () => {

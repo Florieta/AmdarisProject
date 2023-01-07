@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const CarCard = ( {car}) => {
-
+    const { user } = useAuthContext();
     return (
         <div className="info-section">
                 <div className="car-header">
@@ -19,9 +20,9 @@ const CarCard = ( {car}) => {
                     <span className="levels">Type of fuel: {car.fuel}</span>
                     <span className="levels">Daily rate: {car.dailyRate}BGN</span>
                 </p>
-                {car.isAvailable
+                {user.token
                     ? <Link to={`/booking/${car.id}`} className="btn details-btn">Book</Link>
-                    : <p>Car is not available!</p>}
+                    : <p>You need to login first in order to book! <Link to="/login" className="btn details-btn">Login</Link></p>}
             </div>
     );
 };
