@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import * as authService from "../../services/authService";
 
-
 const Login = () => {
     const { userLogin } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Login = () => {
                 navigate('/');
             })
             .catch(() => {
-                navigate('/404');
+                navigate('/error');
             });
     };
     return (

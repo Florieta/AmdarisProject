@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CancelButton from '../Button/CancelBooking';
 
 const BookingList = () => {
     const { user } = useAuthContext();
@@ -67,6 +68,7 @@ const BookingList = () => {
               <TableCell align="right">{booking.insurance ? 'Yes' : 'No'}</TableCell>
               <TableCell align="right">{booking.paymentType}</TableCell>
               <TableCell align="right">{booking.totalAmount}</TableCell>
+              <CancelButton></CancelButton>
             </TableRow>
           ))}
         </TableBody>

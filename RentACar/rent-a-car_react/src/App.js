@@ -11,8 +11,9 @@ import Catalog from './pages/Catalog/Catalog.js';
 import CarDetails from './pages/CarDeatils/CarDetails.js';
 import BookingForm from './components/BookingForm/BookingForm.js';
 import MyBookings from './pages/MyBookings/MyBookings.js'
-import Create from './components/Create/Create.js';
+import Create from './pages/Create/Create.js';
 import MyCars from './pages/MyCars/MyCars.js'
+import ErrorPage from './pages/ErrorPage/Error.js';
 import './App.css';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:carId" element={<CarDetails />} />
         <Route path="/booking/:carId" element={<BookingForm />} />
+        <Route path="/error" element={<ErrorPage />} />
       </Routes>
       </main>
      
