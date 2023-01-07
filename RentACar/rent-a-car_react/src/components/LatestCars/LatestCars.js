@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import React from 'react';
 import { useState, useEffect } from "react";
-import * as ratingService from "../../../services/ratingService";
-import ratingCalculator from "../../../utils/ratingCalculator";
+import * as ratingService from "../../services/ratingService";
+import ratingCalculator from "../../utils/ratingCalculator";
 import Rating from "../Rating/Rating";
 
 

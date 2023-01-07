@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import { toast } from 'react-toastify'
+import { CircularProgress } from '@mui/material'
 
 const BookingForm = () => {
     const getCategories = () => {
@@ -15,7 +15,7 @@ const BookingForm = () => {
     })
 
     if (isLoading) {
-        return <span>Loading...</span>
+        return <span><CircularProgress /></span>
     }
 
     if (isError) {
@@ -71,7 +71,7 @@ const BookingForm = () => {
                     >
                         <MenuItem value={"card"}>Card</MenuItem>
                         <MenuItem value={"cash"}>Cash</MenuItem>
-                        <MenuItem value={"bank transfer"}>Crypto</MenuItem>
+                        <MenuItem value={"bank transfer"}>Bank transfer</MenuItem>
                     </TextField>
 
                     <label htmlFor="total-amount">Total amount:</label>

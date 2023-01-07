@@ -5,4 +5,4 @@ export const getAll = () => {
         .then(res => res.json())
 };
 
-//export const getOne = (id) => fetch(`${baseUrl}/Car/${id}`).then(res => res.json());
+export const getOne = (id) => fetch(`${baseUrl}/Car/${id}`).then(res => res.json());
