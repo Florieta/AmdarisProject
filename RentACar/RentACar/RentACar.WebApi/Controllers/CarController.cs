@@ -65,6 +65,25 @@ namespace RentACar.WebApi.Controllers
             return Ok(getCarDto);
         }
 
+        [HttpGet]
+        [Route("Dealer/{dealerId}")]
+
+        public async Task<IActionResult> GetAllCarsByDealerId(int dealerId)
+        {
+            Log.Instance.LogInformation("Retrieving the list of cars");
+
+            GetAllCarsByDealerId query = new GetAllCarsByDealerId()
+            {
+                DealerId = dealerId
+            };
+            List<Car> result = await _mediator.Send(query);
+            List<GetCarViewModel> mappedResult = _mapper.Map<List<GetCarViewModel>>(result);
+
+            Log.Instance.LogInformation($"There are {result.Count} cars in the fleet");
+
+            return Ok(mappedResult);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] AddCarModel addCarDto)
         {

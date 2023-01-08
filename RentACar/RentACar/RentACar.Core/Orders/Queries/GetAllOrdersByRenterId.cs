@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Orders.Queries
 {
-    public class GetAllOrdersByRenterId : IRequest<List<Order>>
+    public class GetAllCarsByDealerId : IRequest<List<Order>>
     {
         public int RenterId { get; set; }
     }

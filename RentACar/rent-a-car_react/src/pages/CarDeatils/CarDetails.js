@@ -26,7 +26,6 @@ const CarDetails = () => {
        
     return (
         <section id="car-details">
-            <h1>Car Details</h1>
             {(isLoading || isFetching) && <CircularProgress />}
       {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
       {!isLoading && !isFetching && !isError && car &&

@@ -32,9 +32,17 @@ namespace RentACar.Infrastructure.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Car>> GetCarsByDealerIdAsync(int dealerId)
+        {
+            return await _context.Cars
+                .Where(c => c.IsDeleted == false && c.DealerId == dealerId)
+                .Include(c => c.Category)
+                .ToListAsync();
+        }
+
         public async Task<Car> GetByIdAsync(int carId)
         {
-            var car = await _context.Cars
+            var car = await _context.Cars.Include(x => x.Category)
                 .FirstOrDefaultAsync(p => p.Id == carId && p.IsDeleted == false);
 
             return car;

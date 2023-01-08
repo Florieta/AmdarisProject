@@ -1,19 +1,19 @@
 #car-details {
     position: relative;
     display: block;
-    width: 980px;
-    margin: 90px auto;
+    width: 970px;
+    margin: 20px auto;
     overflow: hidden;
     border-radius: 10px;
     transition: all 0.4s;
 }
 
 #car-details>h1 {
-    color: #fff;
+    color: rgb(101, 87, 87);
     font-family: "Agency FB";
-    font-size: 55px;
+    font-size: 34px;
     font-weight: 700;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-transform: uppercase;
     text-align: center;
 }
@@ -47,7 +47,7 @@
     font-weight: 400;
 }
 
-.levels {
+.info-car  {
     display: inline-block;
     margin-top: 15px;
     color: #555;
@@ -59,7 +59,7 @@
 
 .type {
     display: inline-block;
-    color: #959595;
+    color: #787878;
     font-size: 19px;
     margin-left: 10px;
 }
@@ -89,6 +89,12 @@
 .text {
     font-size: 25px;
     color: #545454;
+}
+
+.alter-text{
+    font-size: 15px;
+    color: #545454;
+    text-decoration: solid;
 }
 
 .movie_social {

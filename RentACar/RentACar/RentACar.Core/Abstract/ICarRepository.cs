@@ -20,5 +20,7 @@ namespace RentACar.Application.Abstract
 
         Task Update(Car car);
 
+        Task<List<Car>> GetCarsByDealerIdAsync(int dealerId);
+
     }
 }

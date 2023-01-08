@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Orders.Queries
 {
-    public class GetAllOrdersByRenterIdHandler : IRequestHandler<GetAllOrdersByRenterId, List<Order>>
+    public class GetAllCarsByDealerIdHandler : IRequestHandler<GetAllCarsByDealerId, List<Order>>
     {
         private readonly IUnitOfWork unitOfWorkRepo;
 
-        public GetAllOrdersByRenterIdHandler(IUnitOfWork unitOfWorkRepo)
+        public GetAllCarsByDealerIdHandler(IUnitOfWork unitOfWorkRepo)
         {
             this.unitOfWorkRepo = unitOfWorkRepo;
         }
 
-        public async Task<List<Order>> Handle(GetAllOrdersByRenterId request, CancellationToken cancellationToken)
+        public async Task<List<Order>> Handle(GetAllCarsByDealerId request, CancellationToken cancellationToken)
         {
             return await this.unitOfWorkRepo.OrderRepository.GetAllOrdersByRenterIdAsync(request.RenterId);
         }

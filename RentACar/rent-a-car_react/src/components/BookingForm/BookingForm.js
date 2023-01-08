@@ -22,9 +22,6 @@ const BookingForm = () => {
         return <span>Error: {error.message}</span>
     }
 
-
-
-
     return (
         <section id="create-page" className="auth">
             <form id="create">

@@ -71,7 +71,7 @@ namespace RentACar.WebApi.Controllers
         {
             Log.Instance.LogInformation("Retrieving the list of bookings");
 
-            GetAllOrdersByRenterId query = new GetAllOrdersByRenterId()
+            GetAllCarsByDealerId query = new GetAllCarsByDealerId()
             {
                 RenterId = renterId
             };
