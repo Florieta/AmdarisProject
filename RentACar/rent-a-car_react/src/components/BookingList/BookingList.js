@@ -1,7 +1,4 @@
-import { Alert } from '@mui/material'
-import { useQuery } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
-import { useAuthContext } from '../../hooks/useAuthContext';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,25 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CancelButton from '../Button/CancelBooking';
 
-const BookingList = () => {
-    const { user } = useAuthContext();
-    const getMyBookings = () => {
-        return fetch(`https://localhost:7016/api/Order/Renter/${user.user.renterId}`)
-            .then(res => res.json())
-    }
-
-    const {
-        data : bookings,
-        isError,
-        isLoading,
-        isFetching
-      } = useQuery(['getMyBookingsKey'], getMyBookings, {
-        retry: false,
-        onError: () => toast.error('Something went wrong!'),
-        refetchOnWindowFocus: false,
-      })
-
-
+const BookingList = ({bookings}) => {
     return (
 <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -49,9 +28,7 @@ const BookingList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-      {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
-      {!isLoading && !isFetching && !isError && bookings &&
-          bookings.map((booking) => (
+          {bookings.map((booking) => (
             <TableRow
               key={booking.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
