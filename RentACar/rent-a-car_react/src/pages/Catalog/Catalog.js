@@ -22,7 +22,7 @@ const Catalog = () => {
 
     return (
         <section id="catalog-page">
-            <h1>All Cars</h1>
+            <h1>Available Cars</h1>
 {(isLoading || isFetching) && <CircularProgress />}
       {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
       {!isLoading && !isFetching && !isError && cars && cars.length > 0

@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext.js';
 
+import Footer from './components/Footer/Footer.js';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home.js';
 import Logout from './pages/Logout/Logout.js';
@@ -37,8 +38,8 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
       </Routes>
       </main>
-     
     </div>
+    <Footer />
     </AuthProvider>
   );
 }
