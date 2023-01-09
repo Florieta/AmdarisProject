@@ -6,11 +6,47 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import CancelButton from '../Button/CancelBooking';
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { Alert } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'react-toastify'
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useMutation } from "@tanstack/react-query";
 
-const BookingList = ({bookings}) => {
-    return (
-<TableContainer component={Paper}>
+
+const BookingList = () => {
+
+  const { user } = useAuthContext();
+
+  const getMyBookings = () => {
+      return fetch(`https://localhost:7016/api/Order/Renter/${user.user.renterId}`)
+          .then(res => res.json())
+  }
+
+  const {
+      data : bookings,
+      isError,
+      isLoading,
+      isFetching,
+      refetch
+    } = useQuery(['getMyBookingsKey'], getMyBookings, {
+      retry: false,
+      onError: () => toast.error('Something went wrong!'),
+      refetchOnWindowFocus: false,
+    })
+
+  const bookingDelete = useMutation((id) => {
+    const res = axios.delete(`https://localhost:7016/api/Order/${id}`);
+    toast.success('The booking was successfully cancelled');
+    
+    return res;
+  });
+
+
+
+  return (
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -28,13 +64,15 @@ const BookingList = ({bookings}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookings.map((booking) => (
+      {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
+      {!isLoading && !isFetching && !isError && bookings && bookings.length > 0 &&
+          bookings.map((booking) => (
             <TableRow
               key={booking.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {booking.carMake} {booking.carModel} 
+                {booking.carMake} {booking.carModel}
               </TableCell>
               <TableCell align="right">{booking.regNumber}</TableCell>
               <TableCell align="right">{booking.pickUpDateAndTime}</TableCell>
@@ -45,13 +83,13 @@ const BookingList = ({bookings}) => {
               <TableCell align="right">{booking.insurance ? 'Yes' : 'No'}</TableCell>
               <TableCell align="right">{booking.paymentType}</TableCell>
               <TableCell align="right">{booking.totalAmount}</TableCell>
-              <CancelButton></CancelButton>
+              <TableCell><Button variant="outlined" color="error" onClick={() => bookingDelete.mutate(booking.id) && refetch()}>Cancel</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-);
+  );
 };
 
 export default BookingList;

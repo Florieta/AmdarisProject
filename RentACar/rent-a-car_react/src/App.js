@@ -38,8 +38,8 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
       </Routes>
       </main>
+      <Footer />
     </div>
-    <Footer />
     </AuthProvider>
   );
 }
