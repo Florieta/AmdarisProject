@@ -36,12 +36,11 @@ const BookingList = () => {
       refetchOnWindowFocus: false,
     })
 
-  const bookingDelete = useMutation((id) => {
-    const res = axios.delete(`https://localhost:7016/api/Order/${id}`);
-    toast.success('The booking was successfully cancelled');
+  const bookingDelete = useMutation((id) => axios.delete(`https://localhost:7016/api/Order/${id}`),{
+onSuccess: () => refetch()
+  }
     
-    return res;
-  });
+  );
 
 
 
@@ -83,7 +82,7 @@ const BookingList = () => {
               <TableCell align="right">{booking.insurance ? 'Yes' : 'No'}</TableCell>
               <TableCell align="right">{booking.paymentType}</TableCell>
               <TableCell align="right">{booking.totalAmount}</TableCell>
-              <TableCell><Button variant="outlined" color="error" onClick={() => bookingDelete.mutate(booking.id) && refetch()}>Cancel</Button></TableCell>
+              <TableCell><Button variant="outlined" color="error" onClick={() => bookingDelete.mutate(booking.id)}>Cancel</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

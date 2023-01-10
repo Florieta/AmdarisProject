@@ -52,7 +52,7 @@ header nav>* {
 footer {
     padding: 0.5em;
     width: 100%;
-    position: absolute;
+    position: flex;
     left: 0;
     bottom: 0;
 }
