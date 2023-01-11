@@ -11,7 +11,7 @@
     box-shadow: 0px 0px 32px 0px #32485e, -14px -14px 20px #191c21;
 }
 
-input[type="text"], input[type="datetime-local"], select {
+input[type="text"], input[type="datetime-local"] {
     background: #ecf0f3;
     padding: 30px;
     padding-left: 20px;
@@ -22,7 +22,7 @@ input[type="text"], input[type="datetime-local"], select {
     box-shadow: inset 6px 6px 6px #c0c2c5, inset -6px -6px 6px white;
 }
 
-textarea {
+textarea, select {
     width: 100%;
     min-width: 20vw;
     min-height: 7em;
