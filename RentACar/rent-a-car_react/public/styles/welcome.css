@@ -145,12 +145,15 @@
     margin-top: 10px;
     color: white;
     padding: 0.9em 1.4em;
+    border-radius: 10%;
 }
 
 .data-buttons {
     font-size: 1.4rem;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
+    margin: 10px;
 }
 
 .btn.details-btn:hover {
