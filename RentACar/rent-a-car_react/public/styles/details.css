@@ -114,6 +114,7 @@
     text-align: right;
     padding-right: 15px;
     padding-bottom: 40px;
+    border-radius: 10%;
 }
 
 .button {
@@ -123,6 +124,7 @@
     margin-top: auto;
     font-size: 21px;
     color: rgb(255, 255, 255);
+    border-radius: 10%;
 }
 
 .button:hover {

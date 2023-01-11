@@ -13,31 +13,43 @@ import MyBookings from './pages/MyBookings/MyBookings.js'
 import Create from './pages/Create/Create.js';
 import MyCars from './pages/MyCars/MyCars.js'
 import ErrorPage from './pages/ErrorPage/Error.js';
-import './App.css';
+import PrivateRoute from './components/Common/PrivateRoute.js';
 
 function App() {
-  
+
   return (
     <AuthProvider>
-    <div id="box">
-      <Header />
-      <main id="main-content">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/my-cars" element={<MyCars />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/catalog/:carId" element={<CarDetails />} />
-        <Route path="/booking/:carId" element={<BookingForm />} />
-        <Route path="/error" element={<ErrorPage />} />
-      </Routes>
-      </main>
-      <Footer />
-    </div>
+      <div id="box">
+        <Header />
+        <main id="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/catalog/:carId" element={<CarDetails />} />
+            <Route path="/my-bookings" element={(
+              <PrivateRoute>
+                <MyBookings />
+              </PrivateRoute>)} />
+            <Route path="/my-cars" element={(
+              <PrivateRoute>
+                <MyCars />
+              </PrivateRoute>)}/>
+            <Route path="/create" element={(
+              <PrivateRoute>
+                <Create />
+              </PrivateRoute>)} />
+            <Route path="/booking/:carId" element={(
+              <PrivateRoute>
+                <BookingForm />
+              </PrivateRoute>)} />
+            <Route path="/error" element={<ErrorPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }

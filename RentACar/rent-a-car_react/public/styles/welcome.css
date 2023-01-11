@@ -154,6 +154,7 @@
     padding-bottom: 10px;
     text-align: center;
     margin: 10px;
+    border-radius: 10%;
 }
 
 .btn.details-btn:hover {
