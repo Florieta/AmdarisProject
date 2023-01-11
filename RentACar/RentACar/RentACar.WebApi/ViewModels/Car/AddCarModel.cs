@@ -5,17 +5,14 @@ namespace RentACar.WebApi.ViewModels.Car
 {
     public class AddCarModel
     {
-        [Required]
-        [StringLength(8, MinimumLength = 5)]
+        public int Id { get; set; }
+       
         public string RegNumber { get; set; } = null!;
-        [Required]
-        [StringLength(20, MinimumLength = 2)]
+        
         public string Model { get; set; } = null!;
-        [Required]
-        [StringLength(20, MinimumLength = 2)]
+       
         public string Make { get; set; } = null!;
-        [Required]
-        [Range(2015, 2023)]
+       
         public int MakeYear { get; set; }
 
         public bool AirCondition { get; set; }
@@ -25,12 +22,12 @@ namespace RentACar.WebApi.ViewModels.Car
 
         public bool NavigationSystem { get; set; }
 
-        public Fuel Fuel { get; set; }
-        [Required]
+        public string Fuel { get; set; } = null!;
+
         public string ImageUrl { get; set; } = null!;
 
-        public Transmission Transmission { get; set; }
-        [Required]
+        public string Transmission { get; set; } = null!;
+
 
         public decimal DailyRate { get; set; }
 

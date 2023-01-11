@@ -22,14 +22,13 @@ namespace RentACar.Application.Cars.Commands.Delete
         {
             var car = await this.uniteOfWorkRepo.CarRepository.GetByIdAsync(request.Id);
 
-            if (!car.IsDeleted)
-            {
-                car.IsDeleted = true;
-            }
-            else
+            if (car.IsDeleted)
             {
                 throw new InvalidOperationException("This car is already deleted");
             }
+           
+            this.uniteOfWorkRepo.CarRepository.Remove(car);
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return car;
         }

@@ -22,14 +22,13 @@ namespace RentACar.Application.Categories.Commands.Delete
         {
             var category = await this.uniteOfWorkRepo.CategoryRepository.GetByIdAsync(request.Id);
 
-            if (!category.IsDeleted)
-            {
-                category.IsDeleted = true;
-            }
-            else
+            if (category.IsDeleted)
             {
                 throw new InvalidOperationException("This category is already deleted");
             }
+            
+            this.uniteOfWorkRepo.CategoryRepository.Remove(category);
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return category;
         }

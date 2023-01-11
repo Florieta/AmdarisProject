@@ -87,6 +87,11 @@ namespace RentACar.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] AddCarModel addCarDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Model state not valid");
+            }
+
             CreateCar command = _mapper.Map<CreateCar>(addCarDto);
             Car car = await _mediator.Send(command);
             GetCarViewModel getCarDto = _mapper.Map<GetCarViewModel>(car);

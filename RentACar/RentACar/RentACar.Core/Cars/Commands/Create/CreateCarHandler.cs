@@ -22,6 +22,7 @@ namespace RentACar.Application.Cars.Commands.Create
         {
             var car = new Car
             {
+                Id = request.Id,
                 RegNumber = request.RegNumber,
                 Make = request.Make,
                 Model = request.Model,

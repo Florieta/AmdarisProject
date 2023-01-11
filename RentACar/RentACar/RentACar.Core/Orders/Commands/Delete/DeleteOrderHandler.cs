@@ -22,14 +22,13 @@ namespace RentACar.Application.Orders.Commands.Delete
         {
             var order = await this.uniteOfWorkRepo.OrderRepository.GetByIdAsync(request.Id);
 
-            if (!order.IsDeleted)
-            {
-                order.IsDeleted = true;
-            }
-            else
+            if (order.IsDeleted)
             {
                 throw new InvalidOperationException("This order is already deleted");
             }
+
+            this.uniteOfWorkRepo.OrderRepository.Remove(order);
+            await this.uniteOfWorkRepo.SaveAsync();
 
             return order;
         }

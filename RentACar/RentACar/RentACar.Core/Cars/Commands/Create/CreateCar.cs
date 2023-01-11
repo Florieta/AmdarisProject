@@ -11,6 +11,7 @@ namespace RentACar.Application.Cars.Commands.Create
 {
     public class CreateCar : IRequest<Car>
     {
+        public int Id { get; set; }
         public string RegNumber { get; set; } = null!;
         public string Model { get; set; } = null!;
         public string Make { get; set; } = null!;

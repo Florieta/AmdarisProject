@@ -22,15 +22,13 @@ namespace RentACar.Application.Locations.Commands.Delete
         {
             var location = await this.uniteOfWorkRepo.LocationRepository.GetByIdAsync(request.Id);
 
-            if (!location.IsDeleted)
-            {
-                location.IsDeleted = true;
-            }
-            else
+            if (location.IsDeleted)
             {
                 throw new InvalidOperationException("This location is already deleted");
             }
-
+           
+            this.uniteOfWorkRepo.LocationRepository.Remove(location);
+            await this.uniteOfWorkRepo.SaveAsync();
             return location;
         }
     }
