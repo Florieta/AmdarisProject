@@ -29,7 +29,6 @@ export const create = async (car) => {
         },
         body: JSON.stringify(car)
     });
-    console.log(res)
     return await res.json();
 };
 

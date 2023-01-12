@@ -5,7 +5,8 @@ import Header from './components/Header/Header';
 import Home from './pages/Home/Home.js';
 import Logout from './pages/Logout/Logout.js';
 import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
+import RegisterRenter from './pages/Register/RegisterRenter.js';
+import RegisterDealer from './pages/Register/RegisterDealer.js';
 import Catalog from './pages/Catalog/Catalog.js';
 import CarDetails from './pages/CarDeatils/CarDetails.js';
 import BookingForm from './components/BookingForm/BookingForm.js';
@@ -23,10 +24,11 @@ function App() {
         <Header />
         <main id="main-content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register-renter" element={<RegisterRenter />} />
+            <Route path="/register-dealer" element={<RegisterDealer />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/catalog/:carId" element={<CarDetails />} />
             <Route path="/my-bookings" element={(

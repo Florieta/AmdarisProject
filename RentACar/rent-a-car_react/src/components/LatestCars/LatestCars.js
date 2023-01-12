@@ -28,7 +28,7 @@ const LatestCars = ({
         <h3>{car.make} {car.model}</h3>
         <h4>Category: {car.categoryName}</h4>
         <div className="rating">
-            {ratings.length == 0 ? <p>Rating: 0</p> : <p>Rating: {averageRating}</p>}
+            {ratings.length === 0 ? <p>Rating: 0</p> : <p>Rating: {averageRating}</p>}
         
         </div>
         <Rating key={car.id} averageRating={averageRating}/>

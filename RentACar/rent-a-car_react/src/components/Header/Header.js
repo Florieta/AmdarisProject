@@ -21,15 +21,16 @@ const Header = () => {
                                 <Link to="/my-cars">My cars</Link>
                                 <Link to="/logout">Logout</Link>
                             </div>
-                            : <div id="renter"> 
-                            <Link to="/my-bookings">My bookings</Link>
-                            <Link to="/logout">Logout</Link>
+                            : <div id="renter">
+                                <Link to="/my-bookings">My bookings</Link>
+                                <Link to="/logout">Logout</Link>
                             </div>}
-                        
+
                     </div>
                     : <div id="guest">
                         <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
+                        <Link to="/register-renter">Register as renter</Link>
+                        <Link to="/register-dealer">Register as dealer</Link>
                     </div>
                 }
 

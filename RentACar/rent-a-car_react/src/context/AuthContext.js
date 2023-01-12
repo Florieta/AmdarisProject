@@ -12,6 +12,10 @@ export const AuthProvider = ({
         setAuth(authData);
     };
 
+    const userRegister = (authData) => {
+        setAuth(authData);
+    };
+
     const userLogout = () => {
         setAuth({});
     };
@@ -21,6 +25,7 @@ export const AuthProvider = ({
             user: auth,
             userLogin,
             userLogout,
+            userRegister,
             isAuthenticated: !!auth.token
         }}>
             {children}

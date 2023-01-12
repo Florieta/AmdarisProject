@@ -4,7 +4,7 @@ const CatalogItem = ({ car }) => {
     return (
         <div className="allCars">
             <div className="allCars-info">
-                <img src={car.imageUrl} />
+                <img src={car.imageUrl} alt="carImage"/>
                 <h2>{car.make}  {car.model} {car.makeYear}</h2>
                 <h6>Category: {car.categoryName}</h6>
                 <Link to={`/catalog/${car.id}`} className="details-button">

@@ -18,6 +18,44 @@ export const login = async (userName, password) => {
     }
 };
 
+export const register = async (userName, password, email, firstName, lastName, phoneNumber, address, age, drivingLicenceNumber, expiredDate) => {
+    let res = await fetch(`${baseUrl}/api/Authentication/register/renter`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({ userName, password, email, firstName, lastName, phoneNumber, address, age, drivingLicenceNumber, expiredDate })
+    });
+
+    let jsonResult = await res.json();
+
+    if (res.ok) {
+        return jsonResult;
+    } else {
+        console.log(jsonResult)
+        throw jsonResult.message;
+    }
+};
+
+export const registerDealer = async (userName, password, email, firstName, lastName, phoneNumber, address, companyName, companyNumber) => {
+    let res = await fetch(`${baseUrl}/api/Authentication/register/dealer`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({ userName, password, email, firstName, lastName, phoneNumber, address, companyName, companyNumber })
+    });
+
+    let jsonResult = await res.json();
+
+    if (res.ok) {
+        return jsonResult;
+    } else {
+        console.log(jsonResult)
+        throw jsonResult.message;
+    }
+};
+
 export const logout = (token) => {
     return fetch(`${baseUrl}/api/Authentication/logout`, {
         headers: {
